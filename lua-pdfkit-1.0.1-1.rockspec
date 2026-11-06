@@ -1,9 +1,9 @@
 rockspec_format = "3.0"
 package = "lua-pdfkit"
-version = "1.0.0-1"
+version = "1.0.1-1"
 source = {
   url = "git+https://github.com/500Foods/lua-pdfkit.git",
-  tag = "v1.0.0",
+  tag = "v1.0.1",
 }
 description = {
   summary = "Pure Lua PDF writer, a port of PDFKit 0.20.2",

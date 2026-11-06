@@ -155,7 +155,7 @@ LICENSE.md
 NOTICE
 LUA-PDFKIT-PLAN.md
 README.md
-lua-pdfkit-1.0.0-1.rockspec
+lua-pdfkit-1.0.1-1.rockspec
 src/pdfkit/                     the August tree, banner stripped
 src/pdfkit/init.lua             require "pdfkit"
 src/pdfkit/font/                generated standard-font metrics as Lua modules
@@ -180,7 +180,7 @@ Record in `vendor/PIN`: tag `v0.20.2`, commit `8d72a71`, the GitHub URL, and the
 
 ## Rock
 
-`lua-pdfkit-1.0.0-1.rockspec`, format 3.0, same shape as the lua-zint-svg rockspec. Package name `lua-pdfkit`, version `1.0.0-1`, source tag `v1.0.0`. The PDFKit pin is stated in the description. The rock version does not track PDFKit's version, because this rock does not claim the whole PDFKit API.
+`lua-pdfkit-1.0.1-1.rockspec`, format 3.0, same shape as the lua-zint-svg rockspec. Package name `lua-pdfkit`, version `1.0.1-1`, source tag `v1.0.1`. 1.0.0-1 remains on LuaRocks at tag `v1.0.0`. The PDFKit pin is stated in the description. The rock version does not track PDFKit's version, because this rock does not claim the whole PDFKit API.
 
 Module name `pdfkit`. Homepage this GitHub repo. License `MIT`. Maintainer Andrew Simard. Dependency `lua >= 5.5`. `build.modules` lists every `src/pdfkit/**/*.lua`, including metric modules and the ICC module. No native dependency, no other rock dependency, no installed script.
 
