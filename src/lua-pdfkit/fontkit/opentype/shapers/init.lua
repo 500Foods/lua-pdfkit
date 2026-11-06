@@ -1,0 +1,151 @@
+-- fontkit/opentype/shapers/init.lua
+--   -- port of fontkit/src/opentype/shapers/index.js
+--
+-- Which shaper handles which script.
+--
+-- Upstream has four: the default one, plus Arabic, Hangul and Indic/Universal.
+-- This port has the default one. The other three are not stubs that could be
+-- filled in later in the same file -- ArabicShaper carries a joining-type state
+-- machine and a generated table of Unicode joining classes, IndicShaper carries
+-- a syllable grammar compiled from a lex-like source, and UniversalShaper
+-- carries a second one. Together they are more code than the whole of the rest
+-- of this port's font handling.
+--
+-- So a script that needs one is refused rather than approximated. Falling back
+-- to the default shaper would produce a page: Arabic letters in their isolated
+-- forms, unjoined, with the vowel marks stacked in the wrong places. It would
+-- look like a bug in the font rather than a missing feature, and it would be
+-- silent. An error at the point of choosing says what is actually wrong.
+--
+-- Note that this only affects fonts whose GSUB says the text is in one of those
+-- scripts. Latin, Greek, Cyrillic, Armenian, Georgian, Hebrew, Thai, Lao, CJK
+-- and everything else not listed below all shape through the default shaper
+-- here as they do upstream.
+
+local DefaultShaper = require("lua-pdfkit.fontkit.opentype.shapers.DefaultShaper")
+
+-- The scripts upstream routes to a shaper this port does not have, and the name
+-- of the shaper it routes them to. Kept as data rather than dropped so the error
+-- can say which one is missing.
+local UNSUPPORTED = {
+    -- ArabicShaper: cursive scripts that join letter to letter.
+    arab = "ArabicShaper",      -- Arabic
+    mong = "ArabicShaper",      -- Mongolian
+    syrc = "ArabicShaper",      -- Syriac
+    ["nko "] = "ArabicShaper",  -- N'Ko
+    phag = "ArabicShaper",      -- Phags Pa
+    mand = "ArabicShaper",      -- Mandaic
+    mani = "ArabicShaper",      -- Manichaean
+    phlp = "ArabicShaper",      -- Psalter Pahlavi
+
+    -- HangulShaper: composes jamo into syllable blocks.
+    hang = "HangulShaper",      -- Hangul
+
+    -- IndicShaper: syllable analysis and glyph reordering. Each script has an
+    -- old tag and a version 2 tag; a font may carry rules for either.
+    bng2 = "IndicShaper",       -- Bengali
+    beng = "IndicShaper",       -- Bengali
+    dev2 = "IndicShaper",       -- Devanagari
+    deva = "IndicShaper",       -- Devanagari
+    gjr2 = "IndicShaper",       -- Gujarati
+    gujr = "IndicShaper",       -- Gujarati
+    guru = "IndicShaper",       -- Gurmukhi
+    gur2 = "IndicShaper",       -- Gurmukhi
+    knda = "IndicShaper",       -- Kannada
+    knd2 = "IndicShaper",       -- Kannada
+    mlm2 = "IndicShaper",       -- Malayalam
+    mlym = "IndicShaper",       -- Malayalam
+    ory2 = "IndicShaper",       -- Oriya
+    orya = "IndicShaper",       -- Oriya
+    taml = "IndicShaper",       -- Tamil
+    tml2 = "IndicShaper",       -- Tamil
+    telu = "IndicShaper",       -- Telugu
+    tel2 = "IndicShaper",       -- Telugu
+    khmr = "IndicShaper",       -- Khmer
+    sinh = "IndicShaper",       -- Sinhala
+
+    -- UniversalShaper: the Universal Shaping Engine, for Brahmi-derived and
+    -- other complex scripts that have no shaper of their own.
+    bali = "UniversalShaper",   -- Balinese
+    batk = "UniversalShaper",   -- Batak
+    brah = "UniversalShaper",   -- Brahmi
+    bugi = "UniversalShaper",   -- Buginese
+    buhd = "UniversalShaper",   -- Buhid
+    cakm = "UniversalShaper",   -- Chakma
+    cham = "UniversalShaper",   -- Cham
+    dupl = "UniversalShaper",   -- Duployan
+    egyp = "UniversalShaper",   -- Egyptian Hieroglyphs
+    gran = "UniversalShaper",   -- Grantha
+    hano = "UniversalShaper",   -- Hanunoo
+    java = "UniversalShaper",   -- Javanese
+    kthi = "UniversalShaper",   -- Kaithi
+    kali = "UniversalShaper",   -- Kayah Li
+    khar = "UniversalShaper",   -- Kharoshthi
+    khoj = "UniversalShaper",   -- Khojki
+    sind = "UniversalShaper",   -- Khudawadi
+    lepc = "UniversalShaper",   -- Lepcha
+    limb = "UniversalShaper",   -- Limbu
+    mahj = "UniversalShaper",   -- Mahajani
+    mtei = "UniversalShaper",   -- Meitei Mayek
+    modi = "UniversalShaper",   -- Modi
+    hmng = "UniversalShaper",   -- Pahawh Hmong
+    rjng = "UniversalShaper",   -- Rejang
+    saur = "UniversalShaper",   -- Saurashtra
+    shrd = "UniversalShaper",   -- Sharada
+    sidd = "UniversalShaper",   -- Siddham
+    sund = "UniversalShaper",   -- Sundanese
+    sylo = "UniversalShaper",   -- Syloti Nagri
+    tglg = "UniversalShaper",   -- Tagalog
+    tagb = "UniversalShaper",   -- Tagbanwa
+    tale = "UniversalShaper",   -- Tai Le
+    lana = "UniversalShaper",   -- Tai Tham
+    tavt = "UniversalShaper",   -- Tai Viet
+    takr = "UniversalShaper",   -- Takri
+    tibt = "UniversalShaper",   -- Tibetan
+    tfng = "UniversalShaper",   -- Tifinagh
+    tirh = "UniversalShaper",   -- Tirhuta
+}
+
+-- The scripts this port does shape. Upstream lists exactly these two and lets
+-- everything unlisted fall through to the same shaper, which is what happens
+-- below -- the table is here for symmetry with the source, not to gate anything.
+local SHAPERS = {
+    latn = DefaultShaper,   -- Latin
+    DFLT = DefaultShaper,   -- Default
+}
+
+local M = {}
+
+--- Pick a shaper for a script tag, or for the first of several tags.
+---
+--- The argument is a list when a script has both an old and a version 2 tag; the
+--- first that a shaper is registered for wins, as upstream.
+function M.choose(script)
+    if type(script) ~= "table" then
+        script = { script }
+    end
+
+    for _, s in ipairs(script) do
+        local shaper = SHAPERS[s]
+        if shaper then
+            return shaper
+        end
+    end
+
+    -- Nothing registered. Upstream would return the default shaper here; this
+    -- port first checks whether the script is one whose shaper is missing rather
+    -- than absent, and says so instead of laying the text out wrongly.
+    for _, s in ipairs(script) do
+        local missing = UNSUPPORTED[s]
+        if missing then
+            error(string.format(
+                "This port does not implement %s, which the script %q requires. "
+                .. "Text in this script cannot be laid out correctly.",
+                missing, s))
+        end
+    end
+
+    return DefaultShaper
+end
+
+return M

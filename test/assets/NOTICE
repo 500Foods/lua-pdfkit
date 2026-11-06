@@ -1,0 +1,64 @@
+Test fonts and images for the lua-pdfkit comparator. Not installed by the rock.
+
+Fonts
+-----
+
+Alegreya-Bold.ttf
+    Copyright (c) 2011, Juan Pablo del Peral, with Reserved Font Names
+    "Alegreya" and "Alegreya SC". SIL Open Font License 1.1.
+    licenses/OFL-1.1.txt
+
+AlegreyaSans-Light.ttf
+    Copyright (c) 2013 by Juan Pablo del Peral. SIL Open Font License 1.1.
+    licenses/OFL-1.1.txt
+
+Merriweather-Regular.ttf
+    Copyright (c) 2010 by Eben Sorkin, with Reserved Font Name Merriweather.
+    Copyright (c) 2011, Sorkin Type Co, with Reserved Font Name "Merriweather".
+    SIL Open Font License 1.1. licenses/OFL-1.1.txt
+
+SourceCodePro-Regular.ttf
+    Copyright 2010, 2012 Adobe Systems Incorporated, with Reserved Font Name
+    'Source'. SIL Open Font License 1.1. licenses/OFL-1.1.txt
+
+Roboto-Regular.ttf
+Roboto-Italic.ttf
+Roboto-Medium.ttf
+    Copyright 2011 Google Inc. All Rights Reserved.
+    Apache License 2.0. licenses/Apache-2.0.txt
+    Roboto is a trademark of Google.
+
+DroidSansMono.ttf
+    Digitized data copyright (c) 2007, Google Corporation.
+    Apache License 2.0. licenses/Apache-2.0.txt
+    Replaces GoodDog.ttf, which this repository does not redistribute.
+    No GSUB, GPOS, kern, or morx table.
+
+DejaVuSans.ttf
+    Copyright (c) 2003 by Bitstream, Inc. All Rights Reserved.
+    Copyright (c) 2006 by Tavmjong Bah. All Rights Reserved.
+    DejaVu changes are in the public domain.
+    The Bitstream Vera license is in licenses/DejaVu-license.txt.
+    Bitstream Vera is a trademark of Bitstream, Inc.
+
+Images
+------
+
+These files are the copies PDFKit 0.20.2 ships under tests/images and
+examples/images, byte for byte. That repository distributes them with its
+MIT license (see vendor/pdfkit/LICENSE and the root NOTICE).
+
+    bee.jpg
+    bee.png
+    fish.png
+    glassware-noisy.png
+    orientation-6.jpeg
+    pallete-transparent-white-1bit.png
+    pngsuite-gray-transparent-black.png
+    pngsuite-palette-transparent-white.png
+    pngsuite-rgb-transparent-white.png
+    sampleImage.jpg
+    straight.png
+
+The three pngsuite files are Willem van Schaik's PNG suite samples, as
+shipped by PDFKit.

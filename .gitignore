@@ -1,6 +1,21 @@
-# Vendored PDFKit dependencies. The source under vendor/pdfkit is tracked.
+# Vendored PDFKit dependencies and build output. The source under vendor/pdfkit is tracked.
 node_modules/
 vendor/pdfkit/node_modules/
+vendor/pdfkit/js/
+vendor/pdfkit/build/
+vendor/pdfkit/.yarn/install-state.gz
+vendor/pdfkit/examples/browserify/bundle.js
+vendor/pdfkit/docs/css/
+vendor/pdfkit/docs/img/
+vendor/pdfkit/docs/*.html
+vendor/pdfkit/docs/guide.pdf
+
+# Fonts shipped inside the PDFKit tag that this repo does not redistribute.
+vendor/pdfkit/docs/fonts/GoodDog.ttf
+vendor/pdfkit/docs/fonts/Chalkboard.ttc
+vendor/pdfkit/examples/fonts/GoodDog.ttf
+vendor/pdfkit/examples/fonts/Chalkboard.ttc
+vendor/pdfkit/examples/fonts/PalatinoBold.ttf
 
 # LuaRocks
 *.rock

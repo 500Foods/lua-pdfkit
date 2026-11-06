@@ -56,7 +56,7 @@ Standard-font metrics are generated from Adobe AFM data. The deflate path is a t
 lua test/smoke.lua
 ```
 
-`test/compare.sh` is the byte-identical claim. It needs Node, npm, and `qpdf`. `test/smoke.lua` does not.
+`test/compare.sh` is the byte-identical claim. It needs Node, the vendored Yarn, and `qpdf`. `test/smoke.lua` checks the stored digests with no Node and no `qpdf`. It needs `sha256sum`.
 
 ## Install
 
