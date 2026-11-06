@@ -8,7 +8,7 @@
 -- sits, which cannot be settled earlier because it depends on how large the
 -- text turned out to be.
 
-local accessibility = require("lua-pdfkit.table.accessibility")
+local accessibility = require("pdfkit.table.accessibility")
 
 local M = {}
 

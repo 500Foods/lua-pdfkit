@@ -10,7 +10,7 @@
 -- the JS relies on toString() being called during conversion, and this is the
 -- same hook.
 
-local object = require("lua-pdfkit.object")
+local object = require("pdfkit.object")
 
 local SpotColor = {}
 SpotColor.__index = SpotColor

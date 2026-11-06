@@ -12,8 +12,8 @@
 --
 -- Data from the OpenType script tag registry and PropertyValueAliases.txt.
 
-local unicode = require("lua-pdfkit.fontkit.unicode")
-local utils = require("lua-pdfkit.fontkit.utils")
+local unicode = require("pdfkit.fontkit.unicode")
+local utils = require("pdfkit.fontkit.utils")
 
 local M = {}
 

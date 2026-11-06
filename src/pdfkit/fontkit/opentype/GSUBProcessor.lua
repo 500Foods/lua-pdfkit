@@ -18,8 +18,8 @@
 -- The comments in that section are Harfbuzz's, kept because the cases they
 -- describe are ones no amount of reading the code would suggest.
 
-local OTProcessor = require("lua-pdfkit.fontkit.opentype.OTProcessor")
-local GlyphInfo = require("lua-pdfkit.fontkit.opentype.GlyphInfo")
+local OTProcessor = require("pdfkit.fontkit.opentype.OTProcessor")
+local GlyphInfo = require("pdfkit.fontkit.opentype.GlyphInfo")
 
 local GSUBProcessor = setmetatable({}, { __index = OTProcessor })
 GSUBProcessor.__index = GSUBProcessor

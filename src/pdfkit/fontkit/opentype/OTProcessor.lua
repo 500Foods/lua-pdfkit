@@ -32,8 +32,8 @@
 -- -- "every glyph not otherwise mentioned" -- so there is no absent value to map
 -- to nil, and any array indexed *by a class* needs an explicit `+ 1`.
 
-local GlyphIterator = require("lua-pdfkit.fontkit.opentype.GlyphIterator")
-local Script = require("lua-pdfkit.fontkit.layout.Script")
+local GlyphIterator = require("pdfkit.fontkit.opentype.GlyphIterator")
+local Script = require("pdfkit.fontkit.layout.Script")
 
 -- Tried in order when the requested script is not in the font. `DFLT` is the
 -- spec's spelling, `dflt` is what a good many fonts actually wrote, and `latn`

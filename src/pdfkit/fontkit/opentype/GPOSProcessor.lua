@@ -22,7 +22,7 @@
 -- later in the same pass. Resolving eagerly would attach to a position that no
 -- longer exists by the time the run is finished.
 
-local OTProcessor = require("lua-pdfkit.fontkit.opentype.OTProcessor")
+local OTProcessor = require("pdfkit.fontkit.opentype.OTProcessor")
 
 local GPOSProcessor = setmetatable({}, { __index = OTProcessor })
 GPOSProcessor.__index = GPOSProcessor

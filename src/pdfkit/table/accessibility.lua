@@ -9,9 +9,9 @@
 -- None of this runs unless the caller passed `structParent`. Without it
 -- `_tableStruct` is never created and render.lua takes its plain path.
 
-local object = require("lua-pdfkit.object")
-local PDFStructureElement = require("lua-pdfkit.structure_element")
-local PDFDocument = require("lua-pdfkit.document")
+local object = require("pdfkit.object")
+local PDFStructureElement = require("pdfkit.structure_element")
+local PDFDocument = require("pdfkit.document")
 
 local M = {}
 

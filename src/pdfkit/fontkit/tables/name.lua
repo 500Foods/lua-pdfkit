@@ -16,8 +16,8 @@
 -- they are Apple layout feature labels, which get bucketed under `fontFeatures`
 -- and keyed by id.
 
-local reader = require("lua-pdfkit.fontkit.reader")
-local encodings = require("lua-pdfkit.fontkit.encodings")
+local reader = require("pdfkit.fontkit.reader")
+local encodings = require("pdfkit.fontkit.encodings")
 
 local M = {}
 

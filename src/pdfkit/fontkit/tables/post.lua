@@ -10,7 +10,7 @@
 -- An unrecognised version raises, matching upstream, where the caller catches it
 -- and leaves the table undefined.
 
-local encodings = require("lua-pdfkit.fontkit.encodings")
+local encodings = require("pdfkit.fontkit.encodings")
 
 local M = {}
 

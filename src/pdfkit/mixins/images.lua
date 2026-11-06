@@ -20,8 +20,8 @@
 -- mutually exclusive ways of saying how big, and only fit and cover also imply
 -- an alignment within a box.
 
-local object = require("lua-pdfkit.object")
-local PDFImage = require("lua-pdfkit.image")
+local object = require("pdfkit.object")
+local PDFImage = require("pdfkit.image")
 
 local M = {}
 

@@ -20,11 +20,11 @@
 -- state -- what this glyph's ligature id is, which features apply to it --
 -- without that state leaking into the next run that uses the same glyph.
 
-local ShapingPlan = require("lua-pdfkit.fontkit.opentype.ShapingPlan")
-local Shapers = require("lua-pdfkit.fontkit.opentype.shapers")
-local GlyphInfo = require("lua-pdfkit.fontkit.opentype.GlyphInfo")
-local GSUBProcessor = require("lua-pdfkit.fontkit.opentype.GSUBProcessor")
-local GPOSProcessor = require("lua-pdfkit.fontkit.opentype.GPOSProcessor")
+local ShapingPlan = require("pdfkit.fontkit.opentype.ShapingPlan")
+local Shapers = require("pdfkit.fontkit.opentype.shapers")
+local GlyphInfo = require("pdfkit.fontkit.opentype.GlyphInfo")
+local GSUBProcessor = require("pdfkit.fontkit.opentype.GSUBProcessor")
+local GPOSProcessor = require("pdfkit.fontkit.opentype.GPOSProcessor")
 
 local OTLayoutEngine = {}
 OTLayoutEngine.__index = OTLayoutEngine

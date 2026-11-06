@@ -25,15 +25,15 @@
 -- The @cache decorated getters (bbox, characterSet, _cmapProcessor,
 -- _layoutEngine) are methods that memoise into a field named after themselves.
 
-local base = require("lua-pdfkit.fontkit.base")
-local reader = require("lua-pdfkit.fontkit.reader")
-local encodings = require("lua-pdfkit.fontkit.encodings")
-local utils = require("lua-pdfkit.fontkit.utils")
-local Directory = require("lua-pdfkit.fontkit.tables.directory")
-local tables = require("lua-pdfkit.fontkit.tables")
-local CmapProcessor = require("lua-pdfkit.fontkit.CmapProcessor")
-local BBox = require("lua-pdfkit.fontkit.glyph.BBox")
-local TTFGlyph = require("lua-pdfkit.fontkit.glyph.TTFGlyph")
+local base = require("pdfkit.fontkit.base")
+local reader = require("pdfkit.fontkit.reader")
+local encodings = require("pdfkit.fontkit.encodings")
+local utils = require("pdfkit.fontkit.utils")
+local Directory = require("pdfkit.fontkit.tables.directory")
+local tables = require("pdfkit.fontkit.tables")
+local CmapProcessor = require("pdfkit.fontkit.CmapProcessor")
+local BBox = require("pdfkit.fontkit.glyph.BBox")
+local TTFGlyph = require("pdfkit.fontkit.glyph.TTFGlyph")
 
 local Reader = reader.Reader
 
@@ -429,7 +429,7 @@ end
 -- that is only being measured or subsetted never loads the shaping code at all.
 local function layout_engine(self)
     if not self._layoutEngineCache then
-        local LayoutEngine = require("lua-pdfkit.fontkit.layout.LayoutEngine")
+        local LayoutEngine = require("pdfkit.fontkit.layout.LayoutEngine")
         self._layoutEngineCache = LayoutEngine.new(self)
     end
 
@@ -475,7 +475,7 @@ function TTFFont:_getBaseGlyph(glyph, characters)
         if self.directory.tables.glyf then
             self._glyphs[glyph] = TTFGlyph.new(glyph, characters or {}, self)
         elseif self.directory.tables["CFF "] then
-            local CFFGlyph = require("lua-pdfkit.fontkit.glyph.CFFGlyph")
+            local CFFGlyph = require("pdfkit.fontkit.glyph.CFFGlyph")
             self._glyphs[glyph] = CFFGlyph.new(glyph, characters or {}, self)
         elseif self.directory.tables.CFF2 then
             -- CFF2 is the variable-font outline format. Not ported.
@@ -503,11 +503,11 @@ end
 --- A Subset to add glyphs to, and then encode as a new font file.
 function TTFFont:createSubset()
     if self.directory.tables["CFF "] then
-        local CFFSubset = require("lua-pdfkit.fontkit.subset.CFFSubset")
+        local CFFSubset = require("pdfkit.fontkit.subset.CFFSubset")
         return CFFSubset.new(self)
     end
 
-    local TTFSubset = require("lua-pdfkit.fontkit.subset.TTFSubset")
+    local TTFSubset = require("pdfkit.fontkit.subset.TTFSubset")
     return TTFSubset.new(self)
 end
 

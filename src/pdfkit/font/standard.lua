@@ -10,8 +10,8 @@
 -- them. A path beside this file would work in a checkout and disappear under
 -- luarocks make, which installs the listed modules and nothing next to them.
 
-local AFM = require("lua-pdfkit.font.afm")
-local Font = require("lua-pdfkit.font")
+local AFM = require("pdfkit.font.afm")
+local Font = require("pdfkit.font")
 
 local StandardFont = Font.subclass()
 
@@ -43,20 +43,20 @@ end
 -- PostScript name to the generated module. The filenames are PDFKit's, which
 -- drop the hyphen ("Courier-Bold" is CourierBold).
 local METRIC_MODULES = {
-    ["Courier"] = "lua-pdfkit.font.generated.Courier",
-    ["Courier-Bold"] = "lua-pdfkit.font.generated.CourierBold",
-    ["Courier-Oblique"] = "lua-pdfkit.font.generated.CourierOblique",
-    ["Courier-BoldOblique"] = "lua-pdfkit.font.generated.CourierBoldOblique",
-    ["Helvetica"] = "lua-pdfkit.font.generated.Helvetica",
-    ["Helvetica-Bold"] = "lua-pdfkit.font.generated.HelveticaBold",
-    ["Helvetica-Oblique"] = "lua-pdfkit.font.generated.HelveticaOblique",
-    ["Helvetica-BoldOblique"] = "lua-pdfkit.font.generated.HelveticaBoldOblique",
-    ["Times-Roman"] = "lua-pdfkit.font.generated.TimesRoman",
-    ["Times-Bold"] = "lua-pdfkit.font.generated.TimesBold",
-    ["Times-Italic"] = "lua-pdfkit.font.generated.TimesItalic",
-    ["Times-BoldItalic"] = "lua-pdfkit.font.generated.TimesBoldItalic",
-    ["Symbol"] = "lua-pdfkit.font.generated.Symbol",
-    ["ZapfDingbats"] = "lua-pdfkit.font.generated.ZapfDingbats",
+    ["Courier"] = "pdfkit.font.generated.Courier",
+    ["Courier-Bold"] = "pdfkit.font.generated.CourierBold",
+    ["Courier-Oblique"] = "pdfkit.font.generated.CourierOblique",
+    ["Courier-BoldOblique"] = "pdfkit.font.generated.CourierBoldOblique",
+    ["Helvetica"] = "pdfkit.font.generated.Helvetica",
+    ["Helvetica-Bold"] = "pdfkit.font.generated.HelveticaBold",
+    ["Helvetica-Oblique"] = "pdfkit.font.generated.HelveticaOblique",
+    ["Helvetica-BoldOblique"] = "pdfkit.font.generated.HelveticaBoldOblique",
+    ["Times-Roman"] = "pdfkit.font.generated.TimesRoman",
+    ["Times-Bold"] = "pdfkit.font.generated.TimesBold",
+    ["Times-Italic"] = "pdfkit.font.generated.TimesItalic",
+    ["Times-BoldItalic"] = "pdfkit.font.generated.TimesBoldItalic",
+    ["Symbol"] = "pdfkit.font.generated.Symbol",
+    ["ZapfDingbats"] = "pdfkit.font.generated.ZapfDingbats",
 }
 
 -- Expanded metrics are cached per font name: a document that switches back
@@ -70,7 +70,7 @@ local function load_metrics(name)
 
     local module_name = METRIC_MODULES[name]
     if not module_name then
-        error("lua-pdfkit: no generated metrics for " .. tostring(name))
+        error("pdfkit: no generated metrics for " .. tostring(name))
     end
 
     local font = AFM.new(require(module_name))
@@ -97,7 +97,7 @@ function StandardFont.new(document, name, id)
 end
 
 function StandardFont:embed()
-    local object = require("lua-pdfkit.object")
+    local object = require("pdfkit.object")
 
     self.dictionary.data = object.dict({
         { "Type",     "Font" },

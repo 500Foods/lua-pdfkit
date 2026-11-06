@@ -19,7 +19,7 @@ end
 --- -- unless `opts.data` was given, in which case the whole thing is rendered
 --- immediately and the document is returned instead.
 function M.table(doc, opts)
-    local PDFTable = require("lua-pdfkit.table.index")
+    local PDFTable = require("pdfkit.table.index")
     return PDFTable.new(doc, opts)
 end
 

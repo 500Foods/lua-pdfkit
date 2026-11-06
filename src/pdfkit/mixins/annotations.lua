@@ -13,8 +13,8 @@
 -- table the caller passed. `open` stays `open`. A capitalised twin is not
 -- added. Helpers copy, then annotate copies again.
 
-local object = require("lua-pdfkit.object")
-local PDFAnnotationReference = require("lua-pdfkit.structure_annotation")
+local object = require("pdfkit.object")
+local PDFAnnotationReference = require("pdfkit.structure_annotation")
 
 local M = {}
 

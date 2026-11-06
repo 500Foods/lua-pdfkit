@@ -13,7 +13,7 @@
 -- transform() to flip the coordinate system, and that emits the leading
 -- "1 0 0 -1 0 792 cm" of every content stream.
 
-local utils = require("lua-pdfkit.utils")
+local utils = require("pdfkit.utils")
 
 local number = utils.number
 
@@ -286,7 +286,7 @@ function M.polygon(doc, ...)
 end
 
 function M.path(doc, path)
-    local SVGPath = require("lua-pdfkit.path")
+    local SVGPath = require("pdfkit.path")
     SVGPath.apply(doc, path)
     return doc
 end

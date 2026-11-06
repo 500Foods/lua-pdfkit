@@ -15,7 +15,7 @@
 --
 -- Based on Harfbuzz's hb-ot-shape-fallback.cc.
 
-local unicode = require("lua-pdfkit.fontkit.unicode")
+local unicode = require("pdfkit.fontkit.unicode")
 
 local UnicodeLayoutEngine = {}
 UnicodeLayoutEngine.__index = UnicodeLayoutEngine

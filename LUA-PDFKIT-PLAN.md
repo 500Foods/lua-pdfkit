@@ -23,10 +23,10 @@ Follow the order of work below. The August port already matches 0.19.1, so this 
 
 ## What this library is
 
-A PDF writer. `require "lua-pdfkit"` returns the document constructor. Callers build a document with the PDFKit method names, then write the bytes.
+A PDF writer. `require "pdfkit"` returns the document constructor. Callers build a document with the PDFKit method names, then write the bytes.
 
 ```lua
-local PDFDocument = require "lua-pdfkit"
+local PDFDocument = require "pdfkit"
 
 local doc = PDFDocument.new({ size = "LETTER" })
 doc:fontSize(16)
@@ -53,7 +53,7 @@ Compression, font subsetting, PNG decode, and the standard-font metrics are insi
 - The pin for this round is PDFKit **0.20.2** (release of 2026-08-30, commit `8d72a71`). Git master is past that tag and is not the pin. A globally installed `pdfkit` is not the oracle. The comparator loads the vendored tree.
 - Tests run on Lua **5.5.1**. The rockspec depends on `lua >= 5.5`.
 - The whole August tree is copied. The byte-compare claim is the sixteen example families below, re-run against 0.20.2. Forms, encryption, and outlines ship in the tree and stay off that claim until a test covers them.
-- The module name stays `lua-pdfkit`. Internal `require("lua-pdfkit....")` paths stay. The rock name is `lua-pdfkit`.
+- The Lua module name is `pdfkit`, the same shape as `require "zint"`. Internal `require("pdfkit....")` paths follow that name, including nested folders such as `pdfkit.font.generated.Helvetica`. The rock name stays `lua-pdfkit`.
 - There is no user-facing CLI. PDFKit is a library. `test/compare.sh` is the shell entry the differential harness uses.
 - Standard-font metrics follow 0.20.2: generated tables, loaded as Lua modules. The runtime stops parsing AFM files. Widths have to match the generated numbers Node loads.
 - Runtime data the rock must install (metric tables, the sRGB ICC profile) lives in Lua modules. A path next to a `.lua` file works in a checkout and disappears under `luarocks make`, because the builtin build installs listed modules.
@@ -66,7 +66,7 @@ We do not imply affiliation with foliojs or Devon Govett. The README credits the
 
 `github.com/500Foods/lua-pdfkit` on `main` is the template. `LICENSE.md` is already MIT, copyright Andrew Simard, 2026. `.gitignore` is a Delphi template and will be replaced. The CLOC workflow still forces Pascal on `*.inc`. The badge URL already points at this repository.
 
-The port is `solution/lua-pdfkit/` in the Harbor task above. About 115 Lua files, on the order of a megabyte, most of it tables: fontkit, linebreak data, the zlib 1.3.1 compressor (`zlib/deflate.lua`, `zlib/trees.lua`), and `flate.lua` (inflate, Adler-32, the zlib wrapper). `require("lua-pdfkit")` returns the module. `PDFDocument.new` is `Document.new`.
+The port is `solution/lua-pdfkit/` in the Harbor task above. About 115 Lua files, on the order of a megabyte, most of it tables: fontkit, linebreak data, the zlib 1.3.1 compressor (`zlib/deflate.lua`, `zlib/trees.lua`), and `flate.lua` (inflate, Adler-32, the zlib wrapper). `require("pdfkit")` returns the module. `PDFDocument.new` is `Document.new`.
 
 Every Lua file in that tree starts with the Harbor benchmark banner and a canary id. Those lines are stripped before the first commit of the source. They do not appear in this repo.
 
@@ -156,12 +156,12 @@ NOTICE
 LUA-PDFKIT-PLAN.md
 README.md
 lua-pdfkit-1.0.0-1.rockspec
-src/lua-pdfkit/                 the August tree, banner stripped
-src/lua-pdfkit/init.lua         require "lua-pdfkit"
-src/lua-pdfkit/font/            generated standard-font metrics as Lua modules
-src/lua-pdfkit/zlib/            deflate, matching Node's zlib on the bytes
-src/lua-pdfkit/fontkit/         subsetter and OpenType tables
-src/lua-pdfkit/mixins/          vector, text, images, color, annotations, forms, outlines
+src/pdfkit/                     the August tree, banner stripped
+src/pdfkit/init.lua             require "pdfkit"
+src/pdfkit/font/                generated standard-font metrics as Lua modules
+src/pdfkit/zlib/                deflate, matching Node's zlib on the bytes
+src/pdfkit/fontkit/             subsetter and OpenType tables
+src/pdfkit/mixins/              vector, text, images, color, annotations, forms, outlines
 vendor/pdfkit/                  PDFKit 0.20.2 source, not in the rock
 vendor/PIN                      tag, commit, url, resolved dependency versions
 test/compare.sh                 installs vendor deps if needed, diffs the sixteen families
@@ -182,7 +182,7 @@ Record in `vendor/PIN`: tag `v0.20.2`, commit `8d72a71`, the GitHub URL, and the
 
 `lua-pdfkit-1.0.0-1.rockspec`, format 3.0, same shape as the lua-zint-svg rockspec. Package name `lua-pdfkit`, version `1.0.0-1`, source tag `v1.0.0`. The PDFKit pin is stated in the description. The rock version does not track PDFKit's version, because this rock does not claim the whole PDFKit API.
 
-Module name `lua-pdfkit`. Homepage this GitHub repo. License `MIT`. Maintainer Andrew Simard. Dependency `lua >= 5.5`. `build.modules` lists every `src/lua-pdfkit/**/*.lua`, including metric modules and the ICC module. No native dependency, no other rock dependency, no installed script.
+Module name `pdfkit`. Homepage this GitHub repo. License `MIT`. Maintainer Andrew Simard. Dependency `lua >= 5.5`. `build.modules` lists every `src/pdfkit/**/*.lua`, including metric modules and the ICC module. No native dependency, no other rock dependency, no installed script.
 
 `luarocks make` in this repo is how we check the rock. `luarocks upload` is how other people install it.
 
@@ -190,7 +190,7 @@ Module name `lua-pdfkit`. Homepage this GitHub repo. License `MIT`. Maintainer A
 
 The README states, in this order:
 
-- Pure Lua, no Node at runtime. `require "lua-pdfkit"`, the `finish` rename, and one short example.
+- Pure Lua, no Node at runtime. `require "pdfkit"`, the `finish` rename, and one short example.
 - Credit and links: Devon Govett, https://github.com/foliojs/pdfkit, https://pdfkit.org/, the 0.20.2 pin. Independent port.
 - A table: the sixteen families, each marked `matches 0.20.2`. The match is defined in one sentence: byte-identical after the three blankings above.
 - A short list of what is in the tree and not in that claim: forms, encryption, outlines, `registerFile` / `toBytes` / `toBlob`.
@@ -211,10 +211,10 @@ Tests come in two layers.
 1. This file. Then `NOTICE` (filled in as the audit finishes), `.gitignore`, the README, and the CLOC workflow change. `LICENSE.md` is already MIT.
 2. Vendor PDFKit 0.20.2, write `vendor/PIN`, install its runtime dependencies into the gitignored `node_modules`, confirm the package version is 0.20.2.
 3. License audit of the generated font metrics, the ICC profile, the transcribed libraries, and the test fonts and images. Swap anything we cannot ship. Record the notices.
-4. Copy the Lua tree into `src/lua-pdfkit/`. Strip the Harbor banner from every file. Do not copy `tests/digests.txt` as the claim. Adapt `comparepdf.sh` without the banner.
+4. Copy the Lua tree into `src/pdfkit/`. Strip the Harbor banner from every file. Do not copy `tests/digests.txt` as the claim. Adapt `comparepdf.sh` without the banner.
 5. Replace runtime AFM parsing with Lua modules of the 0.20.2 generated metrics. Point the ICC load at a Lua module.
 6. Adapt the thirty-two programs (sixteen families, two sets) onto this repo's paths. Re-run Node 0.20.2 against Lua. Fix diffs until every family matches. Write `test/digests.txt` from that run. `test/smoke.lua` reads it.
-7. `luarocks make`, then `lua -e 'local P=require"lua-pdfkit"; print(type(P.new))'` on Lua 5.5.1. That prints `function`.
+7. `luarocks make`, then `lua -e 'local P=require"pdfkit"; print(type(P.new))'` on Lua 5.5.1. That prints `function`.
 8. Upload if a LuaRocks API key is present. Otherwise stop with the rockspec ready.
 
 ## Done
@@ -222,7 +222,7 @@ Tests come in two layers.
 - Vendored PDFKit reports version 0.20.2, and `vendor/pdfkit/node_modules/` is untracked.
 - All sixteen families match that build after the three blankings, both the development programs and the held-out programs.
 - `test/smoke.lua` passes without Node.
-- `luarocks make` succeeds. `require "lua-pdfkit"` returns a table whose `new` is a function.
+- `luarocks make` succeeds. `require "pdfkit"` returns a table whose `new` is a function.
 - `LICENSE.md` is MIT. `NOTICE` names PDFKit, the transcribed libraries, zlib, the Adobe font metrics, and the ICC profile.
 - No Harbor banner remains in the committed source.
 - The README's claim is the sixteen families, and it names forms, encryption, and outlines as present and not yet compared.

@@ -12,8 +12,8 @@
 -- so `#` is never used on these and the column count is carried separately in
 -- `_numColumns`.
 
-local utils = require("lua-pdfkit.utils")
-local table_utils = require("lua-pdfkit.table.utils")
+local utils = require("pdfkit.utils")
+local table_utils = require("pdfkit.table.utils")
 
 local cosine = utils.cosine
 local sine = utils.sine

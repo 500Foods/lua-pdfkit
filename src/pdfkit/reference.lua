@@ -21,8 +21,8 @@
 -- "\nendstream" produces a blank line before endstream. That blank line is real
 -- and it is in PDFKit's output, so it has to be in ours.
 
-local object = require("lua-pdfkit.object")
-local flate = require("lua-pdfkit.flate")
+local object = require("pdfkit.object")
+local flate = require("pdfkit.flate")
 
 local Reference = {}
 Reference.__index = Reference

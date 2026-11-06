@@ -7,7 +7,7 @@
 -- Keys arrive as numbers and compare numerically, not as text -- so 10 sorts
 -- after 9, where a name tree would put it before.
 
-local Tree = require("lua-pdfkit.tree")
+local Tree = require("pdfkit.tree")
 
 local NumberTree = Tree.subclass()
 

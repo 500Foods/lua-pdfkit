@@ -15,7 +15,7 @@
 -- mark glyph sets serve the `useMarkFilteringSet` lookup flag, which fontkit
 -- decodes but never acts on.
 
-local ot = require("lua-pdfkit.fontkit.tables.opentype")
+local ot = require("pdfkit.fontkit.tables.opentype")
 
 local M = {}
 

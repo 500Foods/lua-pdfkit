@@ -12,8 +12,8 @@
 -- normalizer here is idempotent -- normalizing an already-normalized side
 -- definition or alignment returns it unchanged.
 
-local utils = require("lua-pdfkit.utils")
-local table_utils = require("lua-pdfkit.table.utils")
+local utils = require("pdfkit.utils")
+local table_utils = require("pdfkit.table.utils")
 
 local normalizeSides = utils.normalizeSides
 local deepMerge = table_utils.deepMerge

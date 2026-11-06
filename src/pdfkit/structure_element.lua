@@ -21,9 +21,9 @@
 --   a function         a closure that draws content; called at attach time and
 --                      replaced by the marked content it produced
 
-local object = require("lua-pdfkit.object")
-local PDFStructureContent = require("lua-pdfkit.structure_content")
-local PDFAnnotationReference = require("lua-pdfkit.structure_annotation")
+local object = require("pdfkit.object")
+local PDFStructureContent = require("pdfkit.structure_content")
+local PDFAnnotationReference = require("pdfkit.structure_annotation")
 
 local PDFStructureElement = {}
 PDFStructureElement.__index = PDFStructureElement

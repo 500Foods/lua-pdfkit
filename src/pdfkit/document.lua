@@ -22,12 +22,12 @@
 -- no equivalent, so this buffers the whole document and writes it out when
 -- finish() completes. The bytes are identical either way.
 
-local object = require("lua-pdfkit.object")
-local utils = require("lua-pdfkit.utils")
-local md5 = require("lua-pdfkit.md5")
-local Reference = require("lua-pdfkit.reference")
-local Page = require("lua-pdfkit.page")
-local NameTree = require("lua-pdfkit.name_tree")
+local object = require("pdfkit.object")
+local utils = require("pdfkit.utils")
+local md5 = require("pdfkit.md5")
+local Reference = require("pdfkit.reference")
+local Page = require("pdfkit.page")
+local NameTree = require("pdfkit.name_tree")
 
 local Document = {}
 Document.__index = Document
@@ -190,7 +190,7 @@ function Document.new(options)
     -- stays nil and every encrypt hook downstream is skipped.
     self._security = nil
     if options.ownerPassword or options.userPassword then
-        error("lua-pdfkit: encrypted documents are not supported")
+        error("pdfkit: encrypted documents are not supported")
     end
 
     -- The header: version, then four high bytes that mark the file as binary.
@@ -552,18 +552,18 @@ local function mixin(module)
     end
 end
 
-mixin(require("lua-pdfkit.mixins.metadata"))
-mixin(require("lua-pdfkit.mixins.color"))
-mixin(require("lua-pdfkit.mixins.vector"))
-mixin(require("lua-pdfkit.mixins.fonts"))
-mixin(require("lua-pdfkit.mixins.text"))
-mixin(require("lua-pdfkit.mixins.images"))
-mixin(require("lua-pdfkit.mixins.annotations"))
-mixin(require("lua-pdfkit.mixins.outline"))
-mixin(require("lua-pdfkit.mixins.markings"))
-mixin(require("lua-pdfkit.mixins.acroform"))
-mixin(require("lua-pdfkit.mixins.attachments"))
-mixin(require("lua-pdfkit.mixins.subsets"))
-mixin(require("lua-pdfkit.mixins.table"))
+mixin(require("pdfkit.mixins.metadata"))
+mixin(require("pdfkit.mixins.color"))
+mixin(require("pdfkit.mixins.vector"))
+mixin(require("pdfkit.mixins.fonts"))
+mixin(require("pdfkit.mixins.text"))
+mixin(require("pdfkit.mixins.images"))
+mixin(require("pdfkit.mixins.annotations"))
+mixin(require("pdfkit.mixins.outline"))
+mixin(require("pdfkit.mixins.markings"))
+mixin(require("pdfkit.mixins.acroform"))
+mixin(require("pdfkit.mixins.attachments"))
+mixin(require("pdfkit.mixins.subsets"))
+mixin(require("pdfkit.mixins.table"))
 
 return Document

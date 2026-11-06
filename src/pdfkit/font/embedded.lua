@@ -22,8 +22,8 @@
 -- position for each. Those positions are in font units and get scaled to the
 -- thousandths of an em a PDF works in, once, here.
 
-local Font = require("lua-pdfkit.font")
-local object = require("lua-pdfkit.object")
+local Font = require("pdfkit.font")
+local object = require("pdfkit.object")
 
 local EmbeddedFont = Font.subclass()
 

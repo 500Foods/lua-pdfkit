@@ -27,12 +27,12 @@
 -- character with its own advance width, kerned if there is a kern table, and
 -- that is what the great majority of Latin text needs.
 
-local KernProcessor = require("lua-pdfkit.fontkit.layout.KernProcessor")
-local UnicodeLayoutEngine = require("lua-pdfkit.fontkit.layout.UnicodeLayoutEngine")
-local GlyphRun = require("lua-pdfkit.fontkit.layout.GlyphRun")
-local GlyphPosition = require("lua-pdfkit.fontkit.layout.GlyphPosition")
-local Script = require("lua-pdfkit.fontkit.layout.Script")
-local reader = require("lua-pdfkit.fontkit.reader")
+local KernProcessor = require("pdfkit.fontkit.layout.KernProcessor")
+local UnicodeLayoutEngine = require("pdfkit.fontkit.layout.UnicodeLayoutEngine")
+local GlyphRun = require("pdfkit.fontkit.layout.GlyphRun")
+local GlyphPosition = require("pdfkit.fontkit.layout.GlyphPosition")
+local Script = require("pdfkit.fontkit.layout.Script")
+local reader = require("pdfkit.fontkit.reader")
 
 local LayoutEngine = {}
 LayoutEngine.__index = LayoutEngine
@@ -57,7 +57,7 @@ function LayoutEngine.new(font)
     if font.directory.tables.morx then
         error("AAT layout (morx) is not supported")
     elseif font.GSUB or font.GPOS then
-        local OTLayoutEngine = require("lua-pdfkit.fontkit.opentype.OTLayoutEngine")
+        local OTLayoutEngine = require("pdfkit.fontkit.opentype.OTLayoutEngine")
         self.engine = OTLayoutEngine.new(font)
     end
 

@@ -1,9 +1,9 @@
--- init.lua -- the front door of lua-pdfkit
+-- init.lua -- the front door of pdfkit
 --
 -- PDFKit's entry point is the PDFDocument class and nothing else, and that is
 -- the shape this keeps:
 --
---     local PDFDocument = require("lua-pdfkit")
+--     local PDFDocument = require("pdfkit")
 --
 --     local doc = PDFDocument.new({ size = "LETTER", compress = false })
 --     doc:fontSize(16)
@@ -27,7 +27,7 @@
 -- it, say, or formatting a number the way the PDF writer does. They are not
 -- needed for ordinary use, and PDFKit does not expose equivalents.
 
-local Document = require("lua-pdfkit.document")
+local Document = require("pdfkit.document")
 
 local M = {}
 
@@ -39,22 +39,22 @@ M.new = Document.new
 M.Document = Document
 
 -- Building blocks.
-M.object = require("lua-pdfkit.object")
-M.utils = require("lua-pdfkit.utils")
-M.Reference = require("lua-pdfkit.reference")
-M.Page = require("lua-pdfkit.page")
+M.object = require("pdfkit.object")
+M.utils = require("pdfkit.utils")
+M.Reference = require("pdfkit.reference")
+M.Page = require("pdfkit.page")
 
 -- Fonts, images and compression, usable on their own.
-M.Font = require("lua-pdfkit.font")
-M.Image = require("lua-pdfkit.image")
-M.PNGReader = require("lua-pdfkit.png_reader")
-M.flate = require("lua-pdfkit.flate")
+M.Font = require("pdfkit.font")
+M.Image = require("pdfkit.image")
+M.PNGReader = require("pdfkit.png_reader")
+M.flate = require("pdfkit.flate")
 
 -- Text layout.
-M.LineBreaker = require("lua-pdfkit.line_breaker")
-M.LineWrapper = require("lua-pdfkit.line_wrapper")
+M.LineBreaker = require("pdfkit.line_breaker")
+M.LineWrapper = require("pdfkit.line_wrapper")
 
 -- SVG path parsing and playback.
-M.SVGPath = require("lua-pdfkit.path")
+M.SVGPath = require("pdfkit.path")
 
 return M

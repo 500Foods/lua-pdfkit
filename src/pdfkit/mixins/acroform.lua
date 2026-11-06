@@ -31,9 +31,9 @@
 -- JavaScript, and does the same here -- which is why VALUE_MAP below is an
 -- ordered list and not a plain table.
 
-local object = require("lua-pdfkit.object")
-local utils = require("lua-pdfkit.utils")
-local annotations = require("lua-pdfkit.mixins.annotations")
+local object = require("pdfkit.object")
+local utils = require("pdfkit.utils")
+local annotations = require("pdfkit.mixins.annotations")
 
 -- Options may arrive as a plain Lua table or as an ordered dictionary; the
 -- annotation mixin already has the coercion, so borrow it rather than repeat it.

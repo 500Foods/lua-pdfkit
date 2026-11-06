@@ -26,8 +26,8 @@
 -- and the opacity tower refers to its inner patterns by the literal name /Sh1
 -- regardless of what the gradients are actually called.
 
-local object = require("lua-pdfkit.object")
-local utils = require("lua-pdfkit.utils")
+local object = require("pdfkit.object")
+local utils = require("pdfkit.utils")
 
 local js_tostring = utils.js_tostring
 local round6 = utils.round6

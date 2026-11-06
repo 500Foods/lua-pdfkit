@@ -8,8 +8,8 @@
 -- them in place. So `#glyphs == #positions` holds from the moment positioning
 -- starts, and every consumer relies on it.
 
-local BBox = require("lua-pdfkit.fontkit.glyph.BBox")
-local Script = require("lua-pdfkit.fontkit.layout.Script")
+local BBox = require("pdfkit.fontkit.glyph.BBox")
+local Script = require("pdfkit.fontkit.layout.Script")
 
 local GlyphRun = {}
 GlyphRun.__index = GlyphRun

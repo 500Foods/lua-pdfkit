@@ -23,7 +23,7 @@
 -- memory is roughly nine times the decompressed size while it runs. For the
 -- images PDFKit embeds that is fine; for a hundred-megabyte stream it is not.
 
-local deflate = require("lua-pdfkit.zlib.deflate")
+local deflate = require("pdfkit.zlib.deflate")
 
 local byte = string.byte
 local char = string.char
@@ -245,7 +245,7 @@ function M.inflate_raw(s, start)
             first = (first + n) << 1
             code = code << 1
         end
-        error("lua-pdfkit: corrupt deflate stream (no code matched)")
+        error("pdfkit: corrupt deflate stream (no code matched)")
     end
 
     -- Output as a flat array of byte values. Back-references reach up to 32 KB
@@ -265,7 +265,7 @@ function M.inflate_raw(s, start)
             -- them is the only integrity check a stored block offers.
             local nlen = byte(s, pos + 2) | (byte(s, pos + 3) << 8)
             if (~len & 0xFFFF) ~= nlen then
-                error("lua-pdfkit: corrupt deflate stream (stored length mismatch)")
+                error("pdfkit: corrupt deflate stream (stored length mismatch)")
             end
             pos = pos + 4
             for i = 0, len - 1 do
@@ -306,7 +306,7 @@ function M.inflate_raw(s, start)
                     elseif sym == 16 then
                         local prev = all[i - 1]
                         if prev == nil then
-                            error("lua-pdfkit: corrupt deflate stream (repeat with no previous length)")
+                            error("pdfkit: corrupt deflate stream (repeat with no previous length)")
                         end
                         for _ = 1, 3 + bits(2) do
                             all[i] = prev
@@ -344,17 +344,17 @@ function M.inflate_raw(s, start)
                 else
                     local li = sym - 256
                     if li > 29 then
-                        error("lua-pdfkit: corrupt deflate stream (bad length code)")
+                        error("pdfkit: corrupt deflate stream (bad length code)")
                     end
                     local length = LENGTH_BASE[li] + bits(LENGTH_EXTRA[li])
 
                     local di = decode(dist) + 1
                     if di > 30 then
-                        error("lua-pdfkit: corrupt deflate stream (bad distance code)")
+                        error("pdfkit: corrupt deflate stream (bad distance code)")
                     end
                     local distance = DIST_BASE[di] + bits(DIST_EXTRA[di])
                     if distance > n then
-                        error("lua-pdfkit: corrupt deflate stream (distance before start)")
+                        error("pdfkit: corrupt deflate stream (distance before start)")
                     end
 
                     -- Copied one byte at a time on purpose: a run shorter than
@@ -368,7 +368,7 @@ function M.inflate_raw(s, start)
                 end
             end
         else
-            error("lua-pdfkit: corrupt deflate stream (reserved block type)")
+            error("pdfkit: corrupt deflate stream (reserved block type)")
         end
     until final == 1
 
@@ -410,23 +410,23 @@ end
 --- four-byte Adler-32 of the decompressed content.
 function M.inflate(s, verify)
     if #s < 2 then
-        error("lua-pdfkit: zlib stream too short")
+        error("pdfkit: zlib stream too short")
     end
 
     local cmf = byte(s, 1)
     local flg = byte(s, 2)
 
     if (cmf & 0x0F) ~= 8 then
-        error("lua-pdfkit: unsupported zlib compression method")
+        error("pdfkit: unsupported zlib compression method")
     end
     if ((cmf << 8) | flg) % 31 ~= 0 then
-        error("lua-pdfkit: bad zlib header check")
+        error("pdfkit: bad zlib header check")
     end
 
     local start = 3
     if (flg & 0x20) ~= 0 then
         start = start + 4 -- FDICT: a preset dictionary id we cannot satisfy
-        error("lua-pdfkit: zlib preset dictionaries are not supported")
+        error("pdfkit: zlib preset dictionaries are not supported")
     end
 
     local out, after = M.inflate_raw(s, start)
@@ -437,7 +437,7 @@ function M.inflate(s, verify)
             want = (want << 8) | (byte(s, i) or 0)
         end
         if want ~= M.adler32(out) then
-            error("lua-pdfkit: zlib checksum mismatch")
+            error("pdfkit: zlib checksum mismatch")
         end
     end
 

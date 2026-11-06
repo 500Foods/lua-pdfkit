@@ -17,8 +17,8 @@
 -- while differing in `glyf`. Nothing here has to know that; each font's
 -- directory says where its own tables are and the sharing falls out.
 
-local reader = require("lua-pdfkit.fontkit.reader")
-local TTFFont = require("lua-pdfkit.fontkit.TTFFont")
+local reader = require("pdfkit.fontkit.reader")
+local TTFFont = require("pdfkit.fontkit.TTFFont")
 
 local TrueTypeCollection = {}
 TrueTypeCollection.__index = TrueTypeCollection

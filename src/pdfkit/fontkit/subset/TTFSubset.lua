@@ -17,9 +17,9 @@
 -- a standalone font and will not install; it is only meaningful inside the PDF
 -- that carries it.
 
-local Subset = require("lua-pdfkit.fontkit.subset.Subset")
-local Directory = require("lua-pdfkit.fontkit.tables.directory")
-local TTFGlyphEncoder = require("lua-pdfkit.fontkit.glyph.TTFGlyphEncoder")
+local Subset = require("pdfkit.fontkit.subset.Subset")
+local Directory = require("pdfkit.fontkit.tables.directory")
+local TTFGlyphEncoder = require("pdfkit.fontkit.glyph.TTFGlyphEncoder")
 
 local TTFSubset = setmetatable({}, { __index = Subset })
 TTFSubset.__index = TTFSubset

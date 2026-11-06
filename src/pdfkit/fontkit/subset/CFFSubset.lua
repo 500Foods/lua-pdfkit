@@ -14,9 +14,9 @@
 -- dummy offsets and patched once the positions are known. The numbers do not
 -- change the widths.
 
-local Subset = require("lua-pdfkit.fontkit.subset.Subset")
-local CFF = require("lua-pdfkit.fontkit.cff.font")
-local Writer = require("lua-pdfkit.fontkit.writer").Writer
+local Subset = require("pdfkit.fontkit.subset.Subset")
+local CFF = require("pdfkit.fontkit.cff.font")
+local Writer = require("pdfkit.fontkit.writer").Writer
 
 local CFFSubset = setmetatable({}, { __index = Subset })
 CFFSubset.__index = CFFSubset

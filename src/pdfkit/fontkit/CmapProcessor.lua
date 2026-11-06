@@ -9,8 +9,8 @@
 -- byte encoding on the way in. That fallback is why encodings.lua carries the
 -- Mac script tables at all.
 
-local encodings = require("lua-pdfkit.fontkit.encodings")
-local utils = require("lua-pdfkit.fontkit.utils")
+local encodings = require("pdfkit.fontkit.encodings")
+local utils = require("pdfkit.fontkit.utils")
 
 local binary_search = utils.binary_search
 local range = utils.range

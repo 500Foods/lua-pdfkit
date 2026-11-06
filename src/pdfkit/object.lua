@@ -31,7 +31,7 @@
 -- moving it; assigning nil removes it. That matches JS object semantics closely
 -- enough for our purposes.
 
-local utils = require("lua-pdfkit.utils")
+local utils = require("pdfkit.utils")
 
 local M = {}
 

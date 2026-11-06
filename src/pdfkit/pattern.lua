@@ -16,8 +16,8 @@
 -- matrix, and the default document CTM flips the y axis; without undoing that
 -- the tiles would be upside down relative to everything else.
 
-local object = require("lua-pdfkit.object")
-local utils = require("lua-pdfkit.utils")
+local object = require("pdfkit.object")
+local utils = require("pdfkit.utils")
 
 local js_tostring = utils.js_tostring
 local js_to_fixed = utils.js_to_fixed

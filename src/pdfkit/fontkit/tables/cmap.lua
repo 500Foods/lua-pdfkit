@@ -20,7 +20,7 @@
 -- one: a format 4 cmap for a large font is four parallel arrays of several
 -- thousand entries each, of which a lookup touches about four.
 
-local reader = require("lua-pdfkit.fontkit.reader")
+local reader = require("pdfkit.fontkit.reader")
 
 local Reader = reader.Reader
 

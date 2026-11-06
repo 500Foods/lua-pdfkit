@@ -22,10 +22,10 @@
 -- content stream without changing what anyone sees -- the worst kind of bug to
 -- go looking for.
 
-local LineWrapper = require("lua-pdfkit.line_wrapper")
-local object = require("lua-pdfkit.object")
-local jsstring = require("lua-pdfkit.jsstring")
-local utils = require("lua-pdfkit.utils")
+local LineWrapper = require("pdfkit.line_wrapper")
+local object = require("pdfkit.object")
+local jsstring = require("pdfkit.jsstring")
+local utils = require("pdfkit.utils")
 
 local number = object.number
 local js_tostring = utils.js_tostring

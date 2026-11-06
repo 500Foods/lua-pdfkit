@@ -18,9 +18,9 @@
 -- Positions are zero-based, matching the original, so a caller slicing with
 -- string.sub writes s:sub(last + 1, position).
 
-local classes = require("lua-pdfkit.linebreak.classes")
-local pairs_table = require("lua-pdfkit.linebreak.pairs")
-local data = require("lua-pdfkit.linebreak.data")
+local classes = require("pdfkit.linebreak.classes")
+local pairs_table = require("pdfkit.linebreak.pairs")
+local data = require("pdfkit.linebreak.data")
 
 local M = {}
 

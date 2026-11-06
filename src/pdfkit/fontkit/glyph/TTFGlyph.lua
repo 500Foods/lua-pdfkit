@@ -18,10 +18,10 @@
 --   optionally a 2x2 matrix each. Accented letters are built this way, and
 --   resolving one recurses into the components.
 
-local reader = require("lua-pdfkit.fontkit.reader")
-local Glyph = require("lua-pdfkit.fontkit.glyph.Glyph")
-local Path = require("lua-pdfkit.fontkit.glyph.Path")
-local BBox = require("lua-pdfkit.fontkit.glyph.BBox")
+local reader = require("pdfkit.fontkit.reader")
+local Glyph = require("pdfkit.fontkit.glyph.Glyph")
+local Path = require("pdfkit.fontkit.glyph.Path")
+local BBox = require("pdfkit.fontkit.glyph.BBox")
 
 -- Flags for simple glyphs
 local ON_CURVE       = 1 << 0

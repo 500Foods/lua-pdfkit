@@ -5,9 +5,9 @@
 -- collation rather than by byte value -- see collate.lua for why that
 -- distinction is not academic.
 
-local Tree = require("lua-pdfkit.tree")
-local object = require("lua-pdfkit.object")
-local collate = require("lua-pdfkit.collate")
+local Tree = require("pdfkit.tree")
+local object = require("pdfkit.object")
+local collate = require("pdfkit.collate")
 
 local NameTree = Tree.subclass()
 

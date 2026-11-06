@@ -10,7 +10,7 @@
 -- 2, and the optical size range in 5. Versions 3 and 4 add nothing over 2, which
 -- upstream expresses by aliasing them onto version 2's field list.
 
-local encodings = require("lua-pdfkit.fontkit.encodings")
+local encodings = require("pdfkit.fontkit.encodings")
 
 local M = {}
 

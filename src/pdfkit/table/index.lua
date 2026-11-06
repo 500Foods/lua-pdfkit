@@ -22,10 +22,10 @@
 -- One rename: upstream's `end()` is `finish()` here, because `end` is a Lua
 -- keyword and `t:end()` will not parse.
 
-local normalize = require("lua-pdfkit.table.normalize")
-local size = require("lua-pdfkit.table.size")
-local render = require("lua-pdfkit.table.render")
-local accessibility = require("lua-pdfkit.table.accessibility")
+local normalize = require("pdfkit.table.normalize")
+local size = require("pdfkit.table.size")
+local render = require("pdfkit.table.render")
+local accessibility = require("pdfkit.table.accessibility")
 
 local PDFTable = {}
 PDFTable.__index = PDFTable

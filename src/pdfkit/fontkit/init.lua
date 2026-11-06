@@ -22,7 +22,7 @@
 -- Macintosh resource fork. A caller handed one of those gets the "Unknown font
 -- format" error, which is what upstream would say if its own probe missed.
 
-local base = require("lua-pdfkit.fontkit.base")
+local base = require("pdfkit.fontkit.base")
 
 local M = {}
 
@@ -59,7 +59,7 @@ end
 --- and pdfkit relies on it, passing the family through whenever a caller gave
 --- one.
 function M.create(buffer, postscriptName)
-    local Reader = require("lua-pdfkit.fontkit.reader").Reader
+    local Reader = require("pdfkit.fontkit.reader").Reader
 
     for _, format in ipairs(formats) do
         if format.probe(buffer) then
@@ -98,8 +98,8 @@ end
 -- one back. TrueTypeCollection needs TTFFont, which needs this module's
 -- registry only after create exists.
 
-M.registerFormat(require("lua-pdfkit.fontkit.TTFFont"))
-M.registerFormat(require("lua-pdfkit.fontkit.WOFFFont"))
-M.registerFormat(require("lua-pdfkit.fontkit.TrueTypeCollection"))
+M.registerFormat(require("pdfkit.fontkit.TTFFont"))
+M.registerFormat(require("pdfkit.fontkit.WOFFFont"))
+M.registerFormat(require("pdfkit.fontkit.TrueTypeCollection"))
 
 return M

@@ -367,7 +367,7 @@ local MAC_ENCODINGS = {
     },
 }
 
-local reader = require("lua-pdfkit.fontkit.reader")
+local reader = require("pdfkit.fontkit.reader")
 
 local M = {}
 

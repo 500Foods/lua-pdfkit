@@ -12,7 +12,7 @@
 -- flag on a Microsoft subtable discards the running total instead of adding to
 -- it, so subtable order matters.
 
-local utils = require("lua-pdfkit.fontkit.utils")
+local utils = require("pdfkit.fontkit.utils")
 
 local KernProcessor = {}
 KernProcessor.__index = KernProcessor

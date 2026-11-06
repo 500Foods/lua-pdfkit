@@ -21,7 +21,7 @@
 -- pointer to another lookup of any other type, which fonts use once their
 -- layout data outgrows the 16-bit offsets everything else is written with.
 
-local ot = require("lua-pdfkit.fontkit.tables.opentype")
+local ot = require("pdfkit.fontkit.tables.opentype")
 
 local M = {}
 

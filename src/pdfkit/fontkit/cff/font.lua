@@ -9,10 +9,10 @@
 -- pointer integers, and the same index offsets fontkit's restructure encoder
 -- produces.
 
-local Reader = require("lua-pdfkit.fontkit.reader").Reader
-local Writer = require("lua-pdfkit.fontkit.writer").Writer
-local Operand = require("lua-pdfkit.fontkit.cff.operand")
-local StandardStrings = require("lua-pdfkit.fontkit.cff.standard_strings")
+local Reader = require("pdfkit.fontkit.reader").Reader
+local Writer = require("pdfkit.fontkit.writer").Writer
+local Operand = require("pdfkit.fontkit.cff.operand")
+local StandardStrings = require("pdfkit.fontkit.cff.standard_strings")
 
 local M = {}
 

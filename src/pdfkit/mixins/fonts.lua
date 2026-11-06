@@ -13,9 +13,9 @@
 -- font (see font.lua's ref()), which is why a document's font object is
 -- numbered after its page objects even though the font was loaded first.
 
-local object = require("lua-pdfkit.object")
-local utils = require("lua-pdfkit.utils")
-local FontFactory = require("lua-pdfkit.font_factory")
+local object = require("pdfkit.object")
+local utils = require("pdfkit.utils")
+local FontFactory = require("pdfkit.font_factory")
 
 local M = {}
 

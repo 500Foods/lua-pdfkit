@@ -13,10 +13,10 @@
 -- library numbers are clipped to six decimals; here they are not. That is why
 -- this file reaches for utils.js_tostring rather than utils.number.
 
-local utils = require("lua-pdfkit.utils")
-local object = require("lua-pdfkit.object")
-local gradient = require("lua-pdfkit.gradient")
-local pattern = require("lua-pdfkit.pattern")
+local utils = require("pdfkit.utils")
+local object = require("pdfkit.object")
+local gradient = require("pdfkit.gradient")
+local pattern = require("pdfkit.pattern")
 
 local PDFLinearGradient = gradient.PDFLinearGradient
 local PDFRadialGradient = gradient.PDFRadialGradient
@@ -311,7 +311,7 @@ function M.pattern(doc, bbox, xStep, yStep, stream)
 end
 
 function M.addSpotColor(doc, name, C, Mc, Y, K)
-    local SpotColor = require("lua-pdfkit.spotcolor")
+    local SpotColor = require("pdfkit.spotcolor")
     doc.spotColors[name] = SpotColor.new(doc, name, C, Mc, Y, K)
     return doc
 end

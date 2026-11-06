@@ -30,9 +30,9 @@
 --     table. That is why characterSpacing, horizontalScaling and features are
 --     fields on this object with exactly those names.
 
-local LineBreaker = require("lua-pdfkit.line_breaker").LineBreaker
-local jsstring = require("lua-pdfkit.jsstring")
-local utils = require("lua-pdfkit.utils")
+local LineBreaker = require("pdfkit.line_breaker").LineBreaker
+local jsstring = require("pdfkit.jsstring")
+local utils = require("pdfkit.utils")
 
 local PDFNumber = utils.PDFNumber
 

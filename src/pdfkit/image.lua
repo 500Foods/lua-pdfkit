@@ -17,9 +17,9 @@
 -- casualty is a file whose *name* happens to start with a PNG signature, which
 -- is not a thing.
 
-local base64 = require("lua-pdfkit.base64")
-local JPEG = require("lua-pdfkit.image.jpeg")
-local PNG = require("lua-pdfkit.image.png")
+local base64 = require("pdfkit.base64")
+local JPEG = require("pdfkit.image.jpeg")
+local PNG = require("pdfkit.image.png")
 
 local byte = string.byte
 
@@ -28,7 +28,7 @@ local M = {}
 local function read_file(path)
     local f, err = io.open(path, "rb")
     if not f then
-        error("lua-pdfkit: cannot open image " .. tostring(path) .. ": " .. tostring(err))
+        error("pdfkit: cannot open image " .. tostring(path) .. ": " .. tostring(err))
     end
     local data = f:read("a")
     f:close()
@@ -49,7 +49,7 @@ function M.open(src, label)
     local data
 
     if type(src) ~= "string" then
-        error("lua-pdfkit: image source must be a string (data or filename)")
+        error("pdfkit: image source must be a string (data or filename)")
     end
 
     if is_jpeg(src) or is_png(src) then

@@ -1,6 +1,6 @@
 -- test_17 -- AcroForm: field tree, text, choice, button, formats, document JavaScript
 --
--- The Lua mirror of test_17.js. Everything inside GeneratePDF() is lua-pdfkit
+-- The Lua mirror of test_17.js. Everything inside GeneratePDF() is pdfkit
 -- API surface. Everything outside it is plumbing.
 
 local ROOT do
@@ -11,7 +11,7 @@ local ROOT do
 end
 package.path = ROOT .. "/src/?.lua;" .. ROOT .. "/src/?/init.lua;" .. package.path
 
-local PDFDocument = require("lua-pdfkit")
+local PDFDocument = require("pdfkit")
 
 local function GeneratePDF()
     local doc = PDFDocument.new({

@@ -32,9 +32,9 @@
 --                   the rest runs later, because upstream's inflate is async and
 --                   its callbacks come back in a specific, reproducible order.
 
-local object = require("lua-pdfkit.object")
-local flate = require("lua-pdfkit.flate")
-local PNGReader = require("lua-pdfkit.png_reader")
+local object = require("pdfkit.object")
+local flate = require("pdfkit.flate")
+local PNGReader = require("pdfkit.png_reader")
 
 local bytes_to_string = PNGReader.bytes_to_string
 

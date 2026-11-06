@@ -15,9 +15,9 @@
 -- memoising into a `_`-prefixed field on first call. Same laziness, same
 -- caching, different syntax at the call site.
 
-local unicode = require("lua-pdfkit.fontkit.unicode")
-local Path = require("lua-pdfkit.fontkit.glyph.Path")
-local StandardNames = require("lua-pdfkit.fontkit.glyph.StandardNames")
+local unicode = require("pdfkit.fontkit.unicode")
+local Path = require("pdfkit.fontkit.glyph.Path")
+local StandardNames = require("pdfkit.fontkit.glyph.StandardNames")
 
 -- Zero-based, so the border is one short of the count.
 local STANDARD_NAME_COUNT = #StandardNames + 1

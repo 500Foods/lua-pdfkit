@@ -14,7 +14,7 @@
 -- numerator and the `2` as a denominator, but only when they surround a fraction
 -- slash, so those features are switched on per glyph rather than globally.
 
-local unicode = require("lua-pdfkit.fontkit.unicode")
+local unicode = require("pdfkit.fontkit.unicode")
 
 -- rvrn -- rules that apply only at particular points in a variable font's
 -- design space. Planned first because a variable font expects it before

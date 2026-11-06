@@ -20,43 +20,43 @@
 
 local M = {
     -- Required tables
-    cmap = require("lua-pdfkit.fontkit.tables.cmap"),
-    head = require("lua-pdfkit.fontkit.tables.head"),
-    hhea = require("lua-pdfkit.fontkit.tables.hhea"),
-    hmtx = require("lua-pdfkit.fontkit.tables.hmtx"),
-    maxp = require("lua-pdfkit.fontkit.tables.maxp"),
-    name = require("lua-pdfkit.fontkit.tables.name"),
-    ["OS/2"] = require("lua-pdfkit.fontkit.tables.OS2"),
-    post = require("lua-pdfkit.fontkit.tables.post"),
+    cmap = require("pdfkit.fontkit.tables.cmap"),
+    head = require("pdfkit.fontkit.tables.head"),
+    hhea = require("pdfkit.fontkit.tables.hhea"),
+    hmtx = require("pdfkit.fontkit.tables.hmtx"),
+    maxp = require("pdfkit.fontkit.tables.maxp"),
+    name = require("pdfkit.fontkit.tables.name"),
+    ["OS/2"] = require("pdfkit.fontkit.tables.OS2"),
+    post = require("pdfkit.fontkit.tables.post"),
 
     -- TrueType outlines
-    loca = require("lua-pdfkit.fontkit.tables.loca"),
-    ["cvt "] = require("lua-pdfkit.fontkit.tables.cvt"),
-    fpgm = require("lua-pdfkit.fontkit.tables.fpgm"),
-    prep = require("lua-pdfkit.fontkit.tables.prep"),
+    loca = require("pdfkit.fontkit.tables.loca"),
+    ["cvt "] = require("pdfkit.fontkit.tables.cvt"),
+    fpgm = require("pdfkit.fontkit.tables.fpgm"),
+    prep = require("pdfkit.fontkit.tables.prep"),
 
     -- Layout
-    kern = require("lua-pdfkit.fontkit.tables.kern"),
+    kern = require("pdfkit.fontkit.tables.kern"),
 
     -- OpenType layout. Registering these is what switches shaping on: the
     -- layout engine picks an OpenType engine when `font.GSUB` or `font.GPOS`
     -- is present, and a font with neither still lays out through the kern
     -- table as before.
-    GSUB = require("lua-pdfkit.fontkit.tables.GSUB"),
-    GPOS = require("lua-pdfkit.fontkit.tables.GPOS"),
-    GDEF = require("lua-pdfkit.fontkit.tables.GDEF"),
+    GSUB = require("pdfkit.fontkit.tables.GSUB"),
+    GPOS = require("pdfkit.fontkit.tables.GPOS"),
+    GDEF = require("pdfkit.fontkit.tables.GDEF"),
 
     -- Outlines. Write-only: the module has an `encode` and no `decode`, so the
     -- subset writer can name it in a directory while TTFFont leaves it alone.
     -- Reading a glyph goes through loca and glyph/TTFGlyph.lua, never through
     -- font.glyf; decoding it here would only slice most of the font into a list
     -- of buffers that nothing reads.
-    glyf = require("lua-pdfkit.fontkit.tables.glyf"),
+    glyf = require("pdfkit.fontkit.tables.glyf"),
 
     -- PostScript outlines. The decoder slices the table so its internal offsets
     -- start at zero, which is what the charstring interpreter and the subsetter
     -- both index by.
-    ["CFF "] = require("lua-pdfkit.fontkit.cff.font"),
+    ["CFF "] = require("pdfkit.fontkit.cff.font"),
 }
 
 return M

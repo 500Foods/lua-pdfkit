@@ -4,7 +4,7 @@
 -- construction time -- and so takes an object number in every document -- but
 -- only reaches the catalog if something was actually added to it.
 
-local PDFOutline = require("lua-pdfkit.outline")
+local PDFOutline = require("pdfkit.outline")
 
 local M = {}
 

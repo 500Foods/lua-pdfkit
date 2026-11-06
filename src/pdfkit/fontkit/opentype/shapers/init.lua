@@ -16,8 +16,8 @@
 -- the layout engine reverses the run. Arabic and the other joining scripts
 -- use ArabicShaper.
 
-local DefaultShaper = require("lua-pdfkit.fontkit.opentype.shapers.DefaultShaper")
-local ArabicShaper = require("lua-pdfkit.fontkit.opentype.shapers.ArabicShaper")
+local DefaultShaper = require("pdfkit.fontkit.opentype.shapers.DefaultShaper")
+local ArabicShaper = require("pdfkit.fontkit.opentype.shapers.ArabicShaper")
 
 -- The scripts upstream routes to a shaper this port does not have, and the name
 -- of the shaper it routes them to. Kept as data rather than dropped so the error

@@ -28,7 +28,7 @@
 --   * A coordinate delta in -255..255 goes out as one unsigned byte with its
 --     sign in the flags.
 
-local writer = require("lua-pdfkit.fontkit.writer")
+local writer = require("pdfkit.fontkit.writer")
 
 -- Flags for simple glyphs.
 local ON_CURVE       = 1 << 0

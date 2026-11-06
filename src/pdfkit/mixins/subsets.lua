@@ -5,8 +5,8 @@
 -- construction time. Note the consequence: endSubset exists only when a subset
 -- was requested, which is why the caller checks before invoking it.
 
-local PDFA = require("lua-pdfkit.mixins.pdfa")
-local PDFUA = require("lua-pdfkit.mixins.pdfua")
+local PDFA = require("pdfkit.mixins.pdfa")
+local PDFUA = require("pdfkit.mixins.pdfua")
 
 local M = {}
 

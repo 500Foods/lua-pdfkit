@@ -18,7 +18,7 @@
 -- so that ragged shape lands in the bytes of even the simplest one-page file.
 -- Tidying it up would be wrong.
 
-local object = require("lua-pdfkit.object")
+local object = require("pdfkit.object")
 
 local Tree = {}
 Tree.__index = Tree

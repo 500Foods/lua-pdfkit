@@ -13,7 +13,7 @@
 -- Sibling links are wired up at the end rather than as items are added, because
 -- an item cannot know its own successor until the list is closed.
 
-local object = require("lua-pdfkit.object")
+local object = require("pdfkit.object")
 
 local DEFAULT_OPTIONS = {
     top = 0,

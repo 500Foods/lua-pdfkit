@@ -22,7 +22,7 @@
 -- from a bitfield read earlier in the subtable. An *anchor* is a point in glyph
 -- space; attaching a mark means lining up its anchor with the base's.
 
-local ot = require("lua-pdfkit.fontkit.tables.opentype")
+local ot = require("pdfkit.fontkit.tables.opentype")
 
 local M = {}
 

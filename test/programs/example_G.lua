@@ -7,7 +7,7 @@ local ROOT do
 end
 package.path = ROOT .. "/src/?.lua;" .. ROOT .. "/src/?/init.lua;" .. package.path
 
-local PDFDocument = require("lua-pdfkit")
+local PDFDocument = require("pdfkit")
 
 local function GeneratePDF()
     local doc = PDFDocument.new({

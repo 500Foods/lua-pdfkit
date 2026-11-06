@@ -25,7 +25,7 @@ Transcribed libraries
 ---------------------
 
 These are the libraries the Lua was actually transcribed from. Each is MIT.
-js-md5 is not one of them: src/lua-pdfkit/md5.lua follows RFC 1321.
+js-md5 is not one of them: src/pdfkit/md5.lua follows RFC 1321.
 PDFKit 0.20.2 takes MD5 from @noble/hashes, which this tree does not copy.
 @noble/ciphers is the same: present upstream for encryption, not transcribed
 here.
@@ -38,32 +38,32 @@ fontkit 2.0.4
 linebreak 1.1.0
     Copyright (c) 2014-present Devon Govett
     The line breaker and the generated class tables in
-    src/lua-pdfkit/linebreak/.
+    src/pdfkit/linebreak/.
     https://github.com/foliojs/linebreak
 
 png-js 2.0.0
     Copyright (c) 2017 Devon Govett
-    src/lua-pdfkit/png_reader.lua. The August port was read against
+    src/pdfkit/png_reader.lua. The August port was read against
     png-js 1.1.0. This round is pinned to 2.0.0.
     https://github.com/devongovett/png.js
 
 restructure 3.0.2
     MIT, Devon Govett
-    src/lua-pdfkit/fontkit/reader.lua stands in for it. The table
+    src/pdfkit/fontkit/reader.lua stands in for it. The table
     declarations under fontkit/tables/ are transcribed from fontkit's
     restructure structs.
     https://github.com/foliojs/restructure
 
 unicode-properties 1.4.1
     MIT
-    src/lua-pdfkit/fontkit/unicode.lua holds tables generated from the
+    src/pdfkit/fontkit/unicode.lua holds tables generated from the
     package fontkit imports, not a transcription of its code. The values
     are Unicode character properties.
 
 FDLIBM
 ------
 
-src/lua-pdfkit/jsmath.lua transcribes FDLIBM's __ieee754_pow, which is
+src/pdfkit/jsmath.lua transcribes FDLIBM's __ieee754_pow, which is
 the pow V8 runs. The Sun notice is preserved:
 
     Copyright (C) 1993 by Sun Microsystems, Inc. All rights reserved.
@@ -76,8 +76,8 @@ the pow V8 runs. The Sun notice is preserved:
 zlib
 ----
 
-src/lua-pdfkit/zlib/deflate.lua, src/lua-pdfkit/zlib/trees.lua, and the
-compressor in src/lua-pdfkit/flate.lua are a transcription of zlib 1.3.1
+src/pdfkit/zlib/deflate.lua, src/pdfkit/zlib/trees.lua, and the
+compressor in src/pdfkit/flate.lua are a transcription of zlib 1.3.1
 (https://zlib.net/). The inflate path in flate.lua implements RFC 1950
 and RFC 1951. The zlib notice:
 

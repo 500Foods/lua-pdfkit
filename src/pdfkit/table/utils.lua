@@ -11,7 +11,7 @@
 -- table/ directory mirrors pdfkit/lib/table/ file for file, and keeping the
 -- names means the two can be read side by side.
 
-local object = require("lua-pdfkit.object")
+local object = require("pdfkit.object")
 
 local M = {}
 

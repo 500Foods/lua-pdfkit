@@ -11,8 +11,8 @@
 -- Marks and format characters are transparent: they do not change the state
 -- and they do not take a joining feature.
 
-local DefaultShaper = require("lua-pdfkit.fontkit.opentype.shapers.DefaultShaper")
-local data = require("lua-pdfkit.fontkit.opentype.shapers.arabic_data")
+local DefaultShaper = require("pdfkit.fontkit.opentype.shapers.DefaultShaper")
+local data = require("pdfkit.fontkit.opentype.shapers.arabic_data")
 
 local FEATURES = { "isol", "fina", "fin2", "fin3", "medi", "med2", "init" }
 

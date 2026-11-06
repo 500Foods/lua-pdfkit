@@ -2,12 +2,12 @@
 -- US Letter page, in the default font (Helvetica) at 16pt.
 --
 -- The Lua mirror of pdfkit/test_01.js. Everything inside GeneratePDF() is
--- lua-pdfkit API surface, and each call corresponds one-to-one with a PDFKit
+-- pdfkit API surface, and each call corresponds one-to-one with a PDFKit
 -- call in the JS original. Everything outside it is plumbing -- module
 -- resolution, file handling, output naming -- and is expected to differ
 -- between the two implementations.
 
--- Resolve lua-pdfkit no matter which directory the script is run from.
+-- Resolve pdfkit no matter which directory the script is run from.
 local ROOT do
     local src = debug.getinfo(1, "S").source
     if src:sub(1, 1) == "@" then src = src:sub(2) end
@@ -16,9 +16,9 @@ local ROOT do
 end
 package.path = ROOT .. "/src/?.lua;" .. ROOT .. "/src/?/init.lua;" .. package.path
 
-local PDFDocument = require("lua-pdfkit")
+local PDFDocument = require("pdfkit")
 
--- --- lua-pdfkit API surface -------------------------------------------------
+-- --- pdfkit API surface -------------------------------------------------
 
 local function GeneratePDF()
     local doc = PDFDocument.new({

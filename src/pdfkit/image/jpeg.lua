@@ -13,7 +13,7 @@
 -- inverted and marks the fact in an APP14 segment that PDF readers do not
 -- consult, so the inversion has to be declared here instead.
 
-local object = require("lua-pdfkit.object")
+local object = require("pdfkit.object")
 
 local byte = string.byte
 

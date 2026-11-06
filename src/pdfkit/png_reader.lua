@@ -20,7 +20,7 @@
 -- one-based offset of the next byte to read, where the original counts from
 -- zero. Chunk sizes and offsets are unaffected -- only the indexing shifts.
 
-local flate = require("lua-pdfkit.flate")
+local flate = require("pdfkit.flate")
 
 local byte = string.byte
 local char = string.char
@@ -47,7 +47,7 @@ function PNGReader.new(data)
     self.text = {}
 
     if data:sub(1, 8) ~= SIGNATURE then
-        error("lua-pdfkit: not a PNG file")
+        error("pdfkit: not a PNG file")
     end
 
     -- IDAT may be split across any number of chunks; the pieces are collected
@@ -133,7 +133,7 @@ function PNGReader.new(data)
         self.pos = self.pos + 4 -- skip the CRC
 
         if self.pos > #data + 1 then
-            error("lua-pdfkit: incomplete or corrupt PNG file")
+            error("pdfkit: incomplete or corrupt PNG file")
         end
     end
 end
@@ -378,7 +378,7 @@ function PNGReader:decode_pixels()
                     i = i + 1
                 end
             else
-                error("lua-pdfkit: invalid PNG filter algorithm: " .. tostring(filter))
+                error("pdfkit: invalid PNG filter algorithm: " .. tostring(filter))
             end
 
             if not singlePass then

@@ -9,10 +9,10 @@
 -- root, no indirect object. That absence is load bearing -- it is part of why a
 -- default document has the object count it has.
 
-local object = require("lua-pdfkit.object")
-local PDFStructureElement = require("lua-pdfkit.structure_element")
-local PDFStructureContent = require("lua-pdfkit.structure_content")
-local PDFNumberTree = require("lua-pdfkit.number_tree")
+local object = require("pdfkit.object")
+local PDFStructureElement = require("pdfkit.structure_element")
+local PDFStructureContent = require("pdfkit.structure_content")
+local PDFNumberTree = require("pdfkit.number_tree")
 
 local M = {}
 

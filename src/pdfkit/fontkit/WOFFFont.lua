@@ -8,9 +8,9 @@
 -- WOFF2 is a different container (brotli, a transformed glyf) and is not
 -- handled here.
 
-local TTFFont = require("lua-pdfkit.fontkit.TTFFont")
-local Reader = require("lua-pdfkit.fontkit.reader").Reader
-local flate = require("lua-pdfkit.flate")
+local TTFFont = require("pdfkit.fontkit.TTFFont")
+local Reader = require("pdfkit.fontkit.reader").Reader
+local flate = require("pdfkit.flate")
 
 local WOFFFont = {}
 

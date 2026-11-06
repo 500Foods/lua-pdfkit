@@ -13,8 +13,8 @@
 -- toFunction() is not ported: it compiles the path against a canvas context,
 -- and there is no canvas here.
 
-local BBox = require("lua-pdfkit.fontkit.glyph.BBox")
-local pow = require("lua-pdfkit.jsmath").pow
+local BBox = require("pdfkit.fontkit.glyph.BBox")
+local pow = require("pdfkit.jsmath").pow
 
 local Path = {}
 Path.__index = Path

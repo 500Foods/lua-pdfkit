@@ -12,8 +12,8 @@
 -- roll turns the bottom of the stack). A subset has to name the same
 -- subroutines fontkit names, so a "fixed" operator would embed different bytes.
 
-local Glyph = require("lua-pdfkit.fontkit.glyph.Glyph")
-local Path = require("lua-pdfkit.fontkit.glyph.Path")
+local Glyph = require("pdfkit.fontkit.glyph.Glyph")
+local Path = require("pdfkit.fontkit.glyph.Path")
 
 local CFFGlyph = setmetatable({}, { __index = Glyph })
 CFFGlyph.__index = CFFGlyph

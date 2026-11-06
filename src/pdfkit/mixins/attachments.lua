@@ -14,9 +14,9 @@
 -- optional in the spec, and a fabricated timestamp is a lie that survives in
 -- the file forever.
 
-local object = require("lua-pdfkit.object")
-local md5 = require("lua-pdfkit.md5")
-local base64 = require("lua-pdfkit.base64")
+local object = require("pdfkit.object")
+local md5 = require("pdfkit.md5")
+local base64 = require("pdfkit.base64")
 
 -- Optional. Present it if the host has it; carry on without it if not.
 local has_lfs, lfs = pcall(require, "lfs")

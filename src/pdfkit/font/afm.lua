@@ -196,7 +196,7 @@ end
 
 function AFMFont.new(data)
     if type(data) ~= "table" or type(data.glyphNames) ~= "string" then
-        error("lua-pdfkit: standard-font metrics must be a generated module")
+        error("pdfkit: standard-font metrics must be a generated module")
     end
 
     local self = setmetatable({}, AFMFont)
@@ -238,7 +238,7 @@ function AFMFont.new(data)
             local left_name = glyph_names[left + 1]
             local right_name = glyph_names[right + 1]
             if left_name == nil or left_name == "" or right_name == nil or right_name == "" then
-                error("lua-pdfkit: kern pair id " .. pair_id
+                error("pdfkit: kern pair id " .. pair_id
                     .. " is outside " .. tostring(data.name))
             end
             self.kernPairs[left_name .. "\0" .. right_name] = amount

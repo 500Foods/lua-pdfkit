@@ -85,7 +85,7 @@
 -- arithmetic on positions, and shifting them by one would mean rewriting every
 -- bound in the file. `#` is meaningless on these arrays.
 
-local trees = require("lua-pdfkit.zlib.trees")
+local trees = require("pdfkit.zlib.trees")
 
 local char = string.char
 local byte = string.byte
@@ -310,7 +310,7 @@ local function deflate_init(level, method, windowBits, memLevel, strategy, hash)
     hash = hash or "chromium"
 
     if hash ~= "chromium" and hash ~= "rolling" then
-        error("lua-pdfkit: hash must be \"chromium\" or \"rolling\"")
+        error("pdfkit: hash must be \"chromium\" or \"rolling\"")
     end
 
     if level == -1 then
@@ -325,13 +325,13 @@ local function deflate_init(level, method, windowBits, memLevel, strategy, hash)
         wrap = 0
         windowBits = -windowBits
     elseif windowBits > 15 then
-        error("lua-pdfkit: gzip wrapping is not implemented")
+        error("pdfkit: gzip wrapping is not implemented")
     end
 
     if method ~= 8 or windowBits < 8 or windowBits > 15
         or level < 0 or level > 9 or strategy < 0 or strategy > 4
         or memLevel < 1 or memLevel > 9 then
-        error("lua-pdfkit: bad deflate parameters")
+        error("pdfkit: bad deflate parameters")
     end
 
     if windowBits == 8 then

@@ -9,8 +9,8 @@
 -- A path beside this file works in a checkout and disappears under luarocks
 -- make, which installs the listed modules and nothing next to them.
 
-local object = require("lua-pdfkit.object")
-local srgb_profile = require("lua-pdfkit.mixins.srgb_profile")
+local object = require("pdfkit.object")
+local srgb_profile = require("pdfkit.mixins.srgb_profile")
 
 local M = {}
 

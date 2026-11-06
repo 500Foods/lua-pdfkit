@@ -1,9 +1,9 @@
 # lua-pdfkit
 
-Pure Lua PDF writer. No Node, no C module, and no network at runtime. `require "lua-pdfkit"` returns the document constructor.
+Pure Lua PDF writer. No Node, no C module, and no network at runtime. `require "pdfkit"` returns the document constructor.
 
 ```lua
-local PDFDocument = require "lua-pdfkit"
+local PDFDocument = require "pdfkit"
 
 local doc = PDFDocument.new({ size = "LETTER" })
 doc:fontSize(16)

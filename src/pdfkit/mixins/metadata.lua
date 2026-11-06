@@ -10,8 +10,8 @@
 -- is what the original does. A title containing "&" produces malformed XML in
 -- both implementations; matching that is the point.
 
-local object = require("lua-pdfkit.object")
-local PDFMetadata = require("lua-pdfkit.metadata")
+local object = require("pdfkit.object")
+local PDFMetadata = require("pdfkit.metadata")
 
 local M = {}
 

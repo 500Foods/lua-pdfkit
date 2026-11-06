@@ -8,7 +8,7 @@
 -- keyed by tag -- but they are read and kept because the subset writer has to
 -- emit them again.
 
-local writer = require("lua-pdfkit.fontkit.writer")
+local writer = require("pdfkit.fontkit.writer")
 
 local M = {}
 
@@ -64,7 +64,7 @@ end
 function M.toBuffer(dir)
     -- Required late: tables/init.lua pulls in every table module, and this file
     -- is one of them.
-    local tables = require("lua-pdfkit.fontkit.tables")
+    local tables = require("pdfkit.fontkit.tables")
 
     local entries = {}
     for _, item in ipairs(dir.tables) do

@@ -23,8 +23,8 @@
 -- out of step with the id. Lua has no property setters, so it is a method here
 -- and every assignment goes through it -- see the note on `setId`.
 
-local unicode = require("lua-pdfkit.fontkit.unicode")
-local OTProcessor = require("lua-pdfkit.fontkit.opentype.OTProcessor")
+local unicode = require("pdfkit.fontkit.unicode")
+local OTProcessor = require("pdfkit.fontkit.opentype.OTProcessor")
 
 local GlyphInfo = {}
 GlyphInfo.__index = GlyphInfo

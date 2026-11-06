@@ -19,8 +19,8 @@
 -- has no /Font key. Meanwhile /ColorSpace is forced into existence in end(),
 -- so it always appears, and always last.
 
-local utils = require("lua-pdfkit.utils")
-local object = require("lua-pdfkit.object")
+local utils = require("pdfkit.utils")
+local object = require("pdfkit.object")
 
 local DEFAULT_MARGINS = { top = 72, left = 72, bottom = 72, right = 72 }
 

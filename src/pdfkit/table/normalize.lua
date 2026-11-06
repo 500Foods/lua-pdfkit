@@ -21,10 +21,10 @@
 -- list positions -- they are part of the generated accessibility ids
 -- (`table-0-1-2`), and those have to match what PDFKit emits.
 
-local utils = require("lua-pdfkit.utils")
-local object = require("lua-pdfkit.object")
-local table_utils = require("lua-pdfkit.table.utils")
-local style = require("lua-pdfkit.table.style")
+local utils = require("pdfkit.utils")
+local object = require("pdfkit.object")
+local table_utils = require("pdfkit.table.utils")
+local style = require("pdfkit.table.style")
 
 local normalizeSides = utils.normalizeSides
 local deepMerge = table_utils.deepMerge

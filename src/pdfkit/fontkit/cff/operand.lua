@@ -6,7 +6,7 @@
 -- sized, so it is forced to a five-byte integer, which is what fontkit writes
 -- for every pointer in a subset.
 
-local utils = require("lua-pdfkit.utils")
+local utils = require("pdfkit.utils")
 
 local M = {}
 

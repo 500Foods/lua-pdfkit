@@ -4,9 +4,9 @@
 -- fourteen standard fonts loads a generated metric module. Anything else is a
 -- font file, read from disk and parsed.
 
-local StandardFont = require("lua-pdfkit.font.standard")
-local EmbeddedFont = require("lua-pdfkit.font.embedded")
-local fontkit = require("lua-pdfkit.fontkit")
+local StandardFont = require("pdfkit.font.standard")
+local EmbeddedFont = require("pdfkit.font.embedded")
+local fontkit = require("pdfkit.fontkit")
 
 local M = {}
 
