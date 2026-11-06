@@ -100,18 +100,18 @@ LuaRocks 3.9.2 reads `LUA_VERSION_NUM` as a literal in `lua.h`. Lua 5.5 writes t
 [![Count Lines of Code](https://github.com/500Foods/lua-pdfkit/actions/workflows/main.yml/badge.svg)](https://github.com/500Foods/lua-pdfkit/actions/workflows/main.yml)
 <!--CLOC-START -->
 ```cloc
-Last updated at 2026-11-06 05:08:39 UTC
+Last updated at 2026-11-06 05:50:00 UTC
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
 Lua                            184           4192           7343          22129
 JavaScript                      44            589            464           2446
 Text                             4             64              0            304
-Markdown                         3            101              2            284
+Markdown                         3            101              2            286
 Bourne Shell                     2             29            109            123
 YAML                             2              8             13             37
 -------------------------------------------------------------------------------
-SUM:                           239           4983           7931          25323
+SUM:                           239           4983           7931          25325
 -------------------------------------------------------------------------------
 28 Files were skipped (duplicate, binary, or without source code):
   ttf: 9
@@ -122,8 +122,8 @@ SUM:                           239           4983           7931          25323
   gitignore: 1
   jpeg: 1
   otf: 1
-  qtd9c9rzyd: 1
   rockspec: 1
+  v22ht5vq02: 1
   woff: 1
 ```
 <!--CLOC-END-->
