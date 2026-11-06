@@ -1,0 +1,174 @@
+/*
+PDFObject - converts JavaScript types into their corresponding PDF types.
+By Devon Govett
+*/
+
+import { bytesToHex } from '@noble/hashes/utils';
+import PDFAbstractReference from './abstract_reference';
+import PDFTree from './tree';
+import SpotColor from './spotcolor';
+import { fromBinaryString, toBinaryString, toUTF16BE } from './binary';
+
+const pad = (str, length) => (Array(length + 1).join('0') + str).slice(-length);
+
+// PDF Name objects must escape delimiter characters and whitespace. We keep
+// non-ASCII characters unescaped for backward compatibility in existing output.
+const isSafeCharCode = (code) => {
+  if (code > 0x7f) return true; // keep non-ASCII characters as-is
+
+  return (
+    code > 0x20 && // exclude NUL/control chars + space (0x00-0x20)
+    code !== 0x7f && // exclude DEL
+    code !== 0x23 && // # (escape marker)
+    code !== 0x25 && // % (comment introducer)
+    code !== 0x28 && // ( (literal string delimiter)
+    code !== 0x29 && // ) (literal string delimiter)
+    code !== 0x2f && // / (name object delimiter)
+    code !== 0x3c && // < (hex string delimiter)
+    code !== 0x3e && // > (hex string delimiter)
+    code !== 0x5b && // [ (array start)
+    code !== 0x5d && // ] (array end)
+    code !== 0x7b && // { (dictionary start)
+    code !== 0x7d // } (dictionary end)
+  );
+};
+
+const escapableRe = /[\n\r\t\b\f()\\]/g;
+const escapable = {
+  '\n': '\\n',
+  '\r': '\\r',
+  '\t': '\\t',
+  '\b': '\\b',
+  '\f': '\\f',
+  '\\': '\\\\',
+  '(': '\\(',
+  ')': '\\)',
+};
+
+export const escapeName = function (name) {
+  let escapedName = '';
+
+  for (const char of name) {
+    const code = char.charCodeAt(0);
+    if (isSafeCharCode(code)) {
+      escapedName += char;
+    } else {
+      escapedName += `#${code.toString(16).toUpperCase().padStart(2, '0')}`;
+    }
+  }
+
+  return escapedName;
+};
+
+class PDFObject {
+  static convert(object, encryptFn = null) {
+    // String literals are converted to the PDF name type
+    if (typeof object === 'string') {
+      return `/${object}`;
+
+      // String objects are converted to PDF strings (UTF-16)
+    } else if (object instanceof String) {
+      let string = object;
+      // Detect if this is a unicode string
+      let isUnicode = false;
+      for (let i = 0, end = string.length; i < end; i++) {
+        if (string.charCodeAt(i) > 0x7f) {
+          isUnicode = true;
+          break;
+        }
+      }
+
+      // If so, encode it as big endian UTF-16
+      let stringBytes;
+      if (isUnicode) {
+        stringBytes = toUTF16BE(string.valueOf());
+      } else {
+        stringBytes = fromBinaryString(string.valueOf());
+      }
+
+      // Encrypt the string when necessary
+      if (encryptFn) {
+        stringBytes = encryptFn(stringBytes);
+      }
+
+      string = toBinaryString(stringBytes);
+
+      // Escape characters as required by the spec
+      string = string.replace(escapableRe, (c) => escapable[c]);
+
+      return `(${string})`;
+
+      // Byte arrays are converted to PDF hex strings
+    } else if (object instanceof Uint8Array) {
+      return `<${bytesToHex(object)}>`;
+    } else if (object instanceof PDFTree) {
+      // Name trees hold PDF strings as keys, which have to be encrypted like
+      // any other string in the document
+      return object.toString(encryptFn);
+    } else if (
+      object instanceof PDFAbstractReference ||
+      object instanceof SpotColor
+    ) {
+      return object.toString();
+    } else if (object instanceof Date) {
+      let string =
+        `D:${pad(object.getUTCFullYear(), 4)}` +
+        pad(object.getUTCMonth() + 1, 2) +
+        pad(object.getUTCDate(), 2) +
+        pad(object.getUTCHours(), 2) +
+        pad(object.getUTCMinutes(), 2) +
+        pad(object.getUTCSeconds(), 2) +
+        'Z';
+
+      // Encrypt the string when necessary
+      if (encryptFn) {
+        string = toBinaryString(encryptFn(fromBinaryString(string)));
+
+        // Escape characters as required by the spec
+        string = string.replace(escapableRe, (c) => escapable[c]);
+      }
+
+      return `(${string})`;
+    } else if (Array.isArray(object)) {
+      // Indexed, not `.map` (skips holes, shifting later entries) and not
+      // `Array.from` (defers to a subclass's iterator). Positions are
+      // meaningful, so a hole becomes `null` (ISO 32000-1, 7.3.9).
+      const items = [];
+      for (let i = 0; i < object.length; i++) {
+        const e = object[i];
+        items.push(PDFObject.convert(e === undefined ? null : e, encryptFn));
+      }
+      return `[${items.join(' ')}]`;
+    } else if ({}.toString.call(object) === '[object Object]') {
+      const out = ['<<'];
+      for (let key in object) {
+        const val = object[key];
+        // `undefined` has no PDF representation, so serialising it produced the
+        // literal token `undefined` and an unparseable file. The spec treats a
+        // dictionary entry whose value is null as absent (ISO 32000-1, 7.3.9),
+        // so omitting the key is the closest valid equivalent - and it matches
+        // JSON.stringify. An explicit `null` is left alone: it is a real PDF
+        // object and callers may be relying on it.
+        if (val === undefined) continue;
+        out.push(`/${key} ${PDFObject.convert(val, encryptFn)}`);
+      }
+
+      out.push('>>');
+      return out.join('\n');
+    } else if (typeof object === 'number') {
+      return PDFObject.number(object);
+    } else {
+      return `${object}`;
+    }
+  }
+
+  static number(n) {
+    if (n > -1e21 && n < 1e21) {
+      return Math.round(n * 1e6) / 1e6;
+    }
+
+    throw new Error(`unsupported number: ${n}`);
+  }
+}
+
+export default PDFObject;

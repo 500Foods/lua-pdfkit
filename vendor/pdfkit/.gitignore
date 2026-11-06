@@ -1,0 +1,14 @@
+lib/font/tables/.DS_Store
+.DS_Store
+/node_modules/
+node-zlib/
+playground/
+build/
+js/
+.vscode
+.idea
+coverage
+package-lock.json
+/examples/browserify/bundle.js
+index.html
+/.yarn/install-state.gz
