@@ -18,13 +18,12 @@
 -- rewrite and run in a fixed order, because several of them read keys the
 -- previous one wrote.
 --
--- A NOTE ON MUTATION. The original clones the caller's options and then, when a
--- field type was given, throws the clone away and works on the caller's own
--- object. So a table reused across two fields carries the first field's
--- resolved keys into the second. That is reproduced here rather than tidied:
--- fixing it would make this port disagree with PDFKit's bytes for any code that
--- reuses an options table, and disagreeing is the one thing this port must not
--- do. See the comment in _fieldDict.
+-- 0.20.2 builds a fresh dictionary and copies only the keys it understands.
+-- Friendly options (fontSize, format, label, align) never become PDF keys, and
+-- a table reused for a second field is read again rather than carrying the
+-- first field's /FT and /Ff. The helpers below still rewrite a working copy;
+-- _fieldDict then emits that copy's PDF keys in the order the JavaScript
+-- mappers assign them.
 --
 -- KEY ORDER. As everywhere else in this port, dictionaries are built with
 -- object.dict() so the output key sequence matches the order the source assigns
@@ -331,13 +330,10 @@ function M._fieldDict(doc, name, fieldType, options)
 
     options = to_dict(options or {})
 
-    -- The clone below is discarded whenever a type was given -- see the header.
-    -- Both lines are kept because both are what the original runs: `formField`
-    -- (no type) works on the copy and leaves the caller's table alone, while
-    -- every `form*` helper works on the caller's table directly.
+    -- Work on a copy. 0.20.2 does not write back into the caller's options.
     local opts = shallow_dict_copy(options)
     if fieldType ~= nil then
-        opts = doc:_resolveType(fieldType, options)
+        doc:_resolveType(fieldType, opts)
     end
 
     opts = doc:_resolveFlags(opts)
@@ -354,7 +350,18 @@ function M._fieldDict(doc, name, fieldType, options)
         opts.parent = nil
     end
 
-    return opts
+    -- The mappers in acroform.js assign these keys in this order, and nothing
+    -- else. Subtype and F are added afterwards by formAnnotation.
+    local ordered = object.dict()
+    for _, key in ipairs({
+        "FT", "Ff", "Q", "DR", "DA", "Opt", "V", "DV", "MK", "AA", "T", "Parent",
+    }) do
+        local value = opts[key]
+        if value ~= nil and not (key == "Ff" and value == 0) then
+            ordered[key] = value
+        end
+    end
+    return ordered
 end
 
 --- /FT, plus the flag that distinguishes the four things a button can be.
@@ -451,7 +458,12 @@ function M._resolveFont(doc, options)
         options.DR = object.dict({ { "Font", fontResources } })
 
         -- Get the fontSize option. If not set use auto sizing.
-        local fontSize = truthy(options.fontSize) and options.fontSize or 0
+        -- `fontSize || 0` upstream: 0 and a missing size both mean auto-size.
+        local fontSize = options.fontSize
+        if type(fontSize) ~= "number" or fontSize == 0 then
+            fontSize = 0
+        end
+        options.fontSize = nil
 
         fontResources[doc._font.id] = doc._font:ref()
         options.DA = object.str(
@@ -578,10 +590,11 @@ function M._resolveFormat(doc, opts)
             fnFormat = "AF" .. format .. "_Format"
 
             if f.type == "date" then
-                -- Only the date keystroke handler takes a format string, and it
-                -- is a differently named function from the one that formats.
+                -- The Ex variants take the format as a string. The plain ones
+                -- take an index into Acrobat's predefined formats.
                 fnKeystroke = fnKeystroke .. "Ex"
-                params = js_String(f.param)
+                fnFormat = fnFormat .. "Ex"
+                params = '"' .. js_String(f.param) .. '"'
             elseif f.type == "time" then
                 params = js_String(f.param)
             elseif f.type == "number" then

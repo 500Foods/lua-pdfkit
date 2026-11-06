@@ -12,16 +12,15 @@
 -- reads live in base.lua on their own, and the registry -- which has to be
 -- loaded *after* the formats it holds -- lives here.
 --
--- Of the five formats upstream registers, two are here:
+-- Of the five formats upstream registers, three are here:
 --
 --   TTFFont             SFNT files: .ttf, and .otf with PostScript outlines
+--   WOFFFont            WOFF1, the same tables inside a zlib wrapper
 --   TrueTypeCollection  .ttc, several fonts sharing one file
 --
--- Absent are WOFF and WOFF2, which are the same tables under a web transport
--- wrapper, and DFont, which is a Macintosh resource fork. A caller handed one of
--- those gets the "Unknown font format" error, which is what upstream would say
--- if its own probe missed -- and is a good deal clearer than a directory decoder
--- reading a compression header as a table count.
+-- Absent are WOFF2, which compresses with brotli, and DFont, which is a
+-- Macintosh resource fork. A caller handed one of those gets the "Unknown font
+-- format" error, which is what upstream would say if its own probe missed.
 
 local base = require("lua-pdfkit.fontkit.base")
 
@@ -96,10 +95,11 @@ end
 --------------------------------------------------------------------------------
 --
 -- Required after M.create is defined, because a format module may require this
--- one back -- TrueTypeCollection needs TTFFont, and a future WOFF would need the
--- registry itself to hand off its decompressed tables.
+-- one back. TrueTypeCollection needs TTFFont, which needs this module's
+-- registry only after create exists.
 
 M.registerFormat(require("lua-pdfkit.fontkit.TTFFont"))
+M.registerFormat(require("lua-pdfkit.fontkit.WOFFFont"))
 M.registerFormat(require("lua-pdfkit.fontkit.TrueTypeCollection"))
 
 return M

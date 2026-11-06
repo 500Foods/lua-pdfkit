@@ -15,7 +15,7 @@ doc:finish()
 out:close()
 ```
 
-`pipe` takes an open Lua file handle. Two names differ from PDFKit, because Lua reserves the word: `doc.end()` is `doc:finish()`, and `ref.end()` is `ref:finish()`. Everything else keeps PDFKit's spelling.
+`pipe` takes an open Lua file handle. It is optional: `doc:output()` returns the finished PDF as a string after `finish()`. Two names differ from PDFKit, because Lua reserves the word: `doc.end()` is `doc:finish()`, and `ref.end()` is `ref:finish()`. Everything else keeps PDFKit's spelling. PDFKit's own guide is <https://pdfkit.org/docs/getting_started.html>.
 
 ## Credit
 
@@ -43,8 +43,30 @@ A match is byte-identical PDF output after three length-preserving blankings: PD
 | N | Structure tree and marked content | matches 0.20.2 |
 | O | Table layout | matches 0.20.2 |
 | P | Tagged tables | matches 0.20.2 |
+| Q | AcroForm fields | matches 0.20.2 |
+| R | Outlines | matches 0.20.2 |
+| S | Hebrew, right to left | matches 0.20.2 |
+| T | Arabic joining | matches 0.20.2 |
+| U | Embedded CFF (`.otf`) | matches 0.20.2 |
+| V | WOFF1, unwrapped and then subset | matches 0.20.2 |
 
-Present in the tree, and not part of that claim: interactive forms, PDF encryption, outlines, and the JavaScript entry points `registerFile`, `toBytes`, and `toBlob`. Callers pass a filesystem path or a byte string, and read the PDF from `pipe` / `finish`.
+## Limits
+
+The fourteen standard fonts are WinAnsi. Text outside that encoding needs an embedded font: `.ttf`, `.otf`, or WOFF1.
+
+`userPassword` and `ownerPassword` are refused. Encrypted PDFs are not supported.
+
+WOFF is a web wrapper. PDF does not store it. WOFF1 is inflated and embedded as a normal TrueType or CFF subset. WOFF2 is not supported.
+
+This is a writer. It does not read, merge, or stamp an existing PDF.
+
+Hebrew is laid out right to left. Arabic joining is shaped. Indic, Hangul, and the Universal shaper are not. Variable fonts are not.
+
+Not in this release: PDF encryption, reading or merging existing PDFs, WOFF2, and variable fonts. The JavaScript entry points `registerFile`, `toBytes`, and `toBlob` are not part of the Lua API. Callers pass a filesystem path or a byte string, and read the PDF from `pipe` / `finish` or from `doc:output()`.
+
+## Missing a PDFKit feature?
+
+1.0.0 is the part of PDFKit 0.20.2 that is compared above. If you need a PDFKit feature that did not make this release, please ask for it: <https://github.com/500Foods/lua-pdfkit/issues>.
 
 ## Notices
 

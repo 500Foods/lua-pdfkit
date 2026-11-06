@@ -22,8 +22,8 @@ fi
 export NODE_PATH="$ROOT/vendor:$ROOT/vendor/pdfkit/node_modules"
 mkdir -p test/out
 
-letters=(A B C D E F G H I J K L M N O P)
-numbers=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16)
+letters=(A B C D E F G H I J K L M N O P Q R S T U V)
+numbers=(01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22)
 
 run_pair() {
     local name="$1" lua="$2" js="$3"
@@ -62,8 +62,8 @@ fi
 
 for arg in "${args[@]}"; do
     case "$arg" in
-        [A-P]) run_letter "$arg" ;;
-        0[1-9]|1[0-6])
+        [A-V]) run_letter "$arg" ;;
+        0[1-9]|1[0-9]|2[0-2])
             n=$((10#$arg))
             run_letter "${letters[$((n - 1))]}"
             ;;

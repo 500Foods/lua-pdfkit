@@ -27,14 +27,21 @@ affiliated with foliojs.
     doc:finish()
     out:close()
 
-pipe takes an open Lua file handle. doc:finish() is PDFKit's
-doc.end(), and ref:finish() is ref.end(), because Lua reserves end.
-Other names keep PDFKit's spelling.
+pipe takes an open Lua file handle and is optional.
+doc:output() returns the PDF as a string after finish().
+doc:finish() is PDFKit's doc.end(), and ref:finish() is ref.end(),
+because Lua reserves end. Other names keep PDFKit's spelling.
+PDFKit's guide: https://pdfkit.org/docs/getting_started.html
 
-The sixteen compared families match PDFKit 0.20.2 byte for byte after
-blanking PDF dates, the trailer /ID, and xmp:CreateDate. Forms,
-encryption, and outlines are in the tree and are not part of that
-comparison.
+The twenty-two compared families match PDFKit 0.20.2 byte for byte
+after blanking PDF dates, the trailer /ID, and xmp:CreateDate. That
+includes forms, outlines, Hebrew, Arabic, embedded CFF (.otf), and
+WOFF1. Standard fonts are WinAnsi; Unicode text needs an embedded
+font. Passwords are refused. WOFF2 is not supported. This is a
+writer: it does not read, merge, or stamp an existing PDF.
+
+If a PDFKit feature you need did not make 1.0.0, please ask for it:
+https://github.com/500Foods/lua-pdfkit/issues
 
 Needs Lua 5.5 or newer. The rock builds no C.
 
@@ -81,9 +88,14 @@ build = {
     ["lua-pdfkit.fontkit.CmapProcessor"] = "src/lua-pdfkit/fontkit/CmapProcessor.lua",
     ["lua-pdfkit.fontkit.TTFFont"] = "src/lua-pdfkit/fontkit/TTFFont.lua",
     ["lua-pdfkit.fontkit.TrueTypeCollection"] = "src/lua-pdfkit/fontkit/TrueTypeCollection.lua",
+    ["lua-pdfkit.fontkit.WOFFFont"] = "src/lua-pdfkit/fontkit/WOFFFont.lua",
     ["lua-pdfkit.fontkit.base"] = "src/lua-pdfkit/fontkit/base.lua",
+    ["lua-pdfkit.fontkit.cff.font"] = "src/lua-pdfkit/fontkit/cff/font.lua",
+    ["lua-pdfkit.fontkit.cff.operand"] = "src/lua-pdfkit/fontkit/cff/operand.lua",
+    ["lua-pdfkit.fontkit.cff.standard_strings"] = "src/lua-pdfkit/fontkit/cff/standard_strings.lua",
     ["lua-pdfkit.fontkit.encodings"] = "src/lua-pdfkit/fontkit/encodings.lua",
     ["lua-pdfkit.fontkit.glyph.BBox"] = "src/lua-pdfkit/fontkit/glyph/BBox.lua",
+    ["lua-pdfkit.fontkit.glyph.CFFGlyph"] = "src/lua-pdfkit/fontkit/glyph/CFFGlyph.lua",
     ["lua-pdfkit.fontkit.glyph.Glyph"] = "src/lua-pdfkit/fontkit/glyph/Glyph.lua",
     ["lua-pdfkit.fontkit.glyph.Path"] = "src/lua-pdfkit/fontkit/glyph/Path.lua",
     ["lua-pdfkit.fontkit.glyph.StandardNames"] = "src/lua-pdfkit/fontkit/glyph/StandardNames.lua",
@@ -103,9 +115,12 @@ build = {
     ["lua-pdfkit.fontkit.opentype.OTLayoutEngine"] = "src/lua-pdfkit/fontkit/opentype/OTLayoutEngine.lua",
     ["lua-pdfkit.fontkit.opentype.OTProcessor"] = "src/lua-pdfkit/fontkit/opentype/OTProcessor.lua",
     ["lua-pdfkit.fontkit.opentype.ShapingPlan"] = "src/lua-pdfkit/fontkit/opentype/ShapingPlan.lua",
+    ["lua-pdfkit.fontkit.opentype.shapers.ArabicShaper"] = "src/lua-pdfkit/fontkit/opentype/shapers/ArabicShaper.lua",
     ["lua-pdfkit.fontkit.opentype.shapers.DefaultShaper"] = "src/lua-pdfkit/fontkit/opentype/shapers/DefaultShaper.lua",
+    ["lua-pdfkit.fontkit.opentype.shapers.arabic_data"] = "src/lua-pdfkit/fontkit/opentype/shapers/arabic_data.lua",
     ["lua-pdfkit.fontkit.opentype.shapers"] = "src/lua-pdfkit/fontkit/opentype/shapers/init.lua",
     ["lua-pdfkit.fontkit.reader"] = "src/lua-pdfkit/fontkit/reader.lua",
+    ["lua-pdfkit.fontkit.subset.CFFSubset"] = "src/lua-pdfkit/fontkit/subset/CFFSubset.lua",
     ["lua-pdfkit.fontkit.subset.Subset"] = "src/lua-pdfkit/fontkit/subset/Subset.lua",
     ["lua-pdfkit.fontkit.subset.TTFSubset"] = "src/lua-pdfkit/fontkit/subset/TTFSubset.lua",
     ["lua-pdfkit.fontkit.tables.GDEF"] = "src/lua-pdfkit/fontkit/tables/GDEF.lua",

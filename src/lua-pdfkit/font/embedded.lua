@@ -275,8 +275,8 @@ end
 --- upstream's and neither is arbitrary as far as byte-identical output goes.
 function EmbeddedFont:embed()
     -- A subset of a PostScript-outline font carries a CFF table rather than
-    -- glyf, and is declared differently. Not reachable here: createSubset raises
-    -- on a CFF font, since the charstring interpreter is not ported.
+    -- glyf, and is declared as a CIDFontType0 with a FontFile3. CFFSubset sets
+    -- `cff`; a TrueType subset does not.
     local isCFF = self.subset.cff ~= nil
 
     local fontFile = self.document:ref()

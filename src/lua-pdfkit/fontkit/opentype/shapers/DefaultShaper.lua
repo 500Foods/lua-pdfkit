@@ -5,11 +5,10 @@
 --
 -- A shaper's job is to decide which features to apply and to which glyphs. For
 -- Latin, Greek, Cyrillic and most of the rest of the world's alphabets that is a
--- short, fixed list applied to everything -- which is what this is. The scripts
--- that need more (Arabic joining forms, Indic reordering, Hangul composition)
--- have their own shapers upstream, and each is a substantial piece of work in
--- its own right; see shapers/init.lua for what this port does when one is asked
--- for.
+-- short, fixed list applied to everything -- which is what this is. Scripts that
+-- need more have their own shapers. Arabic joining is ArabicShaper. Indic
+-- reordering, Hangul composition, and the Universal shaper are not ported;
+-- shapers/init.lua refuses those rather than approximating them.
 --
 -- The one piece of real logic here is fractions: `1/2` should set the `1` as a
 -- numerator and the `2` as a denominator, but only when they surround a fraction

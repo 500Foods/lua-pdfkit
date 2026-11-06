@@ -4,40 +4,25 @@
 -- Which shaper handles which script.
 --
 -- Upstream has four: the default one, plus Arabic, Hangul and Indic/Universal.
--- This port has the default one. The other three are not stubs that could be
--- filled in later in the same file -- ArabicShaper carries a joining-type state
--- machine and a generated table of Unicode joining classes, IndicShaper carries
--- a syllable grammar compiled from a lex-like source, and UniversalShaper
--- carries a second one. Together they are more code than the whole of the rest
--- of this port's font handling.
+-- This port has the default one and the Arabic one. Indic and Universal carry
+-- syllable grammars this port does not, and Hangul composes jamo into blocks.
+-- A script that needs one of those is refused rather than approximated: the
+-- default shaper would emit isolated letters and it would look like a broken
+-- font. An error at the point of choosing says what is actually wrong.
 --
--- So a script that needs one is refused rather than approximated. Falling back
--- to the default shaper would produce a page: Arabic letters in their isolated
--- forms, unjoined, with the vowel marks stacked in the wrong places. It would
--- look like a bug in the font rather than a missing feature, and it would be
--- silent. An error at the point of choosing says what is actually wrong.
---
--- Note that this only affects fonts whose GSUB says the text is in one of those
--- scripts. Latin, Greek, Cyrillic, Armenian, Georgian, Hebrew, Thai, Lao, CJK
--- and everything else not listed below all shape through the default shaper
--- here as they do upstream.
+-- Latin, Greek, Cyrillic, Armenian, Georgian, Hebrew, Thai, Lao, CJK and
+-- everything else not listed below all shape through the default shaper here
+-- as they do upstream. Hebrew is right-to-left and still uses that shaper;
+-- the layout engine reverses the run. Arabic and the other joining scripts
+-- use ArabicShaper.
 
 local DefaultShaper = require("lua-pdfkit.fontkit.opentype.shapers.DefaultShaper")
+local ArabicShaper = require("lua-pdfkit.fontkit.opentype.shapers.ArabicShaper")
 
 -- The scripts upstream routes to a shaper this port does not have, and the name
 -- of the shaper it routes them to. Kept as data rather than dropped so the error
 -- can say which one is missing.
 local UNSUPPORTED = {
-    -- ArabicShaper: cursive scripts that join letter to letter.
-    arab = "ArabicShaper",      -- Arabic
-    mong = "ArabicShaper",      -- Mongolian
-    syrc = "ArabicShaper",      -- Syriac
-    ["nko "] = "ArabicShaper",  -- N'Ko
-    phag = "ArabicShaper",      -- Phags Pa
-    mand = "ArabicShaper",      -- Mandaic
-    mani = "ArabicShaper",      -- Manichaean
-    phlp = "ArabicShaper",      -- Psalter Pahlavi
-
     -- HangulShaper: composes jamo into syllable blocks.
     hang = "HangulShaper",      -- Hangul
 
@@ -112,6 +97,16 @@ local UNSUPPORTED = {
 local SHAPERS = {
     latn = DefaultShaper,   -- Latin
     DFLT = DefaultShaper,   -- Default
+
+    -- ArabicShaper: cursive scripts that join letter to letter.
+    arab = ArabicShaper,      -- Arabic
+    mong = ArabicShaper,      -- Mongolian
+    syrc = ArabicShaper,      -- Syriac
+    ["nko "] = ArabicShaper,  -- N'Ko
+    phag = ArabicShaper,      -- Phags Pa
+    mand = ArabicShaper,      -- Mandaic
+    mani = ArabicShaper,      -- Manichaean
+    phlp = ArabicShaper,      -- Psalter Pahlavi
 }
 
 local M = {}

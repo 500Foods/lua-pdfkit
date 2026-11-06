@@ -79,8 +79,8 @@ end
 --- Not necessarily at the start of the file: in a TrueType collection each font
 --- has its own directory somewhere inside the shared data, which is why the
 --- position is remembered rather than assumed to be zero.
-function TTFFont.new(stream, variationCoords)
-    local self = setmetatable({}, font_mt)
+function TTFFont.new(stream, variationCoords, mt)
+    local self = setmetatable({}, mt or font_mt)
 
     self.type = "TTF"
     self.defaultLanguage = nil
@@ -474,11 +474,11 @@ function TTFFont:_getBaseGlyph(glyph, characters)
     if not self._glyphs[glyph] then
         if self.directory.tables.glyf then
             self._glyphs[glyph] = TTFGlyph.new(glyph, characters or {}, self)
-        elseif self.directory.tables["CFF "] or self.directory.tables.CFF2 then
-            -- PostScript outlines. CFFGlyph is not ported: pdfkit embeds an OTF
-            -- by copying its CFF table whole, so nothing needs the charstrings
-            -- interpreted. Falls through to nil, and a caller that wanted an
-            -- outline finds out here rather than getting an empty one.
+        elseif self.directory.tables["CFF "] then
+            local CFFGlyph = require("lua-pdfkit.fontkit.glyph.CFFGlyph")
+            self._glyphs[glyph] = CFFGlyph.new(glyph, characters or {}, self)
+        elseif self.directory.tables.CFF2 then
+            -- CFF2 is the variable-font outline format. Not ported.
             return nil
         end
     end
@@ -503,9 +503,8 @@ end
 --- A Subset to add glyphs to, and then encode as a new font file.
 function TTFFont:createSubset()
     if self.directory.tables["CFF "] then
-        -- Upstream returns a CFFSubset, which rebuilds the charstring index. Not
-        -- ported -- see _getBaseGlyph.
-        error("CFF subsetting is not supported by this port")
+        local CFFSubset = require("lua-pdfkit.fontkit.subset.CFFSubset")
+        return CFFSubset.new(self)
     end
 
     local TTFSubset = require("lua-pdfkit.fontkit.subset.TTFSubset")

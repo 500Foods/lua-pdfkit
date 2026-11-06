@@ -14,9 +14,9 @@
 --   kern                                      -- pre-OpenType kerning
 --   GSUB GPOS GDEF                            -- OpenType layout
 --
--- Absent, and deliberately: the PostScript outline tables (`CFF `, `CFF2`), the
--- bitmap and colour glyph tables, the Apple layout tables (`morx`, `kerx`), and
--- the variation tables (`fvar`, `gvar`, `HVAR` and the rest).
+-- `CFF ` is the PostScript outline table. CFF2, the bitmap and colour glyph
+-- tables, the Apple layout tables (`morx`, `kerx`), and the variation tables
+-- (`fvar`, `gvar`, `HVAR` and the rest) are absent.
 
 local M = {
     -- Required tables
@@ -52,6 +52,11 @@ local M = {
     -- font.glyf; decoding it here would only slice most of the font into a list
     -- of buffers that nothing reads.
     glyf = require("lua-pdfkit.fontkit.tables.glyf"),
+
+    -- PostScript outlines. The decoder slices the table so its internal offsets
+    -- start at zero, which is what the charstring interpreter and the subsetter
+    -- both index by.
+    ["CFF "] = require("lua-pdfkit.fontkit.cff.font"),
 }
 
 return M

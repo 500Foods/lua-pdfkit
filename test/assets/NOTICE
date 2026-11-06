@@ -18,8 +18,13 @@ Merriweather-Regular.ttf
     SIL Open Font License 1.1. licenses/OFL-1.1.txt
 
 SourceCodePro-Regular.ttf
+SourceCodePro-Regular.otf
+SourceCodePro-Regular.woff
     Copyright 2010, 2012 Adobe Systems Incorporated, with Reserved Font Name
     'Source'. SIL Open Font License 1.1. licenses/OFL-1.1.txt
+    The .otf is the CFF build of the same family. The .woff is that TrueType
+    file wrapped as WOFF1; PDF does not store WOFF, and the wrapper exists so
+    the unwrap can be compared.
 
 Roboto-Regular.ttf
 Roboto-Italic.ttf
