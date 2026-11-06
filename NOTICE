@@ -1,0 +1,53 @@
+lua-pdfkit
+Copyright (c) 2026 Andrew Simard
+
+The Lua in this repository is published under the MIT license in LICENSE.md.
+Other notices travel with it. This project is not affiliated with foliojs or
+Devon Govett.
+
+PDFKit
+------
+
+The document writer is a Lua port of PDFKit 0.20.2 by Devon Govett
+(https://github.com/foliojs/pdfkit, https://pdfkit.org/). PDFKit is
+Copyright (c) 2014 Devon Govett and is licensed under the MIT license.
+A copy of that license is in vendor/pdfkit/LICENSE. The conditions that
+matter here: the copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+The notices below name the libraries the Lua was transcribed from, and the
+assets this tree ships. vendor/pdfkit/ is the upstream reading copy and the
+Node oracle. It is not part of the Lua rock.
+
+Transcribed libraries
+---------------------
+
+Filled in by the license audit.
+
+zlib
+----
+
+src/lua-pdfkit/zlib/deflate.lua, src/lua-pdfkit/zlib/trees.lua, and
+src/lua-pdfkit/flate.lua are a transcription of zlib 1.3.1. The zlib
+license notice is recorded here once the audit quotes it.
+
+Standard fonts
+--------------
+
+The fourteen standard-font metric modules are numbers derived from the
+Adobe AFM files PDFKit 0.20.2 generates from. The raw .afm files are not
+installed by the rock. Adobe's copyright notice is recorded here once the
+audit quotes it.
+
+ICC profile
+-----------
+
+PDF/A output embeds the sRGB IEC61966-2.1 profile when a document needs it.
+The HP/Microsoft notice is recorded here if 0.20.2 still ships that profile.
+
+Test fonts and images
+---------------------
+
+Fonts and images under test/assets/ are used by the comparator. They are
+not installed by the rock. Each one is named here, or in
+test/assets/NOTICE, once the audit finishes.
