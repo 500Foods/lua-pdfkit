@@ -100,20 +100,20 @@ LuaRocks 3.9.2 reads `LUA_VERSION_NUM` as a literal in `lua.h`. Lua 5.5 writes t
 [![Count Lines of Code](https://github.com/500Foods/lua-pdfkit/actions/workflows/main.yml/badge.svg)](https://github.com/500Foods/lua-pdfkit/actions/workflows/main.yml)
 <!--CLOC-START -->
 ```cloc
-Last updated at 2026-11-06 04:25:15 UTC
+Last updated at 2026-11-06 05:08:39 UTC
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-Lua                            164           3911           7197          19783
-JavaScript                      32            469            449           1848
-Text                             4             64              0            292
-Markdown                         3             93              2            261
+Lua                            184           4192           7343          22129
+JavaScript                      44            589            464           2446
+Text                             4             64              0            304
+Markdown                         3            101              2            284
 Bourne Shell                     2             29            109            123
 YAML                             2              8             13             37
 -------------------------------------------------------------------------------
-SUM:                           207           4574           7770          22344
+SUM:                           239           4983           7931          25323
 -------------------------------------------------------------------------------
-26 Files were skipped (duplicate, binary, or without source code):
+28 Files were skipped (duplicate, binary, or without source code):
   ttf: 9
   png: 8
   jpg: 2
@@ -121,8 +121,10 @@ SUM:                           207           4574           7770          22344
   gitattributes: 1
   gitignore: 1
   jpeg: 1
-  nwad8h2h6h: 1
+  otf: 1
+  qtd9c9rzyd: 1
   rockspec: 1
+  woff: 1
 ```
 <!--CLOC-END-->
 
